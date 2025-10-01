@@ -118,7 +118,17 @@ export function ProductForm({
         imageUrl = uploadResult.secure_url;
       }
       
-      const productData = { ...values, imageUrl, imageHint };
+      const productData = {
+        name: values.name,
+        category: values.category,
+        color: values.color,
+        size: values.size,
+        bp: values.bp,
+        sp: values.sp,
+        quantity: values.quantity,
+        imageUrl,
+        imageHint,
+      };
       
       if (product) {
         await updateProduct(product.id, productData);
@@ -208,7 +218,7 @@ export function ProductForm({
                 )}
               />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4.  ">
               <FormField control={form.control} name="bp" render={({ field }) => (
                   <FormItem>
                     <FormLabel>Buying Price (BP)</FormLabel>
