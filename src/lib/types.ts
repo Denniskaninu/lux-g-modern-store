@@ -1,4 +1,4 @@
-import { FieldValue } from "firebase/firestore";
+import { FieldValue, Timestamp } from "firebase/firestore";
 
 export type Product = {
   id: string;
@@ -22,5 +22,12 @@ export type Sale = {
   sp: number;
   bp: number;
   profit: number;
-  soldAt: string | FieldValue;
+  soldAt: Timestamp;
 };
+
+export type SaleWithProduct = Sale & {
+    productName: string;
+    productCategory: string;
+    productColor: string;
+    productSize: string;
+}

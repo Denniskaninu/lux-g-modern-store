@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import AdminDashboardContent from "@/components/admin/admin-dashboard-content";
 import LowStockAlerts from "@/components/admin/low-stock-alerts";
+import SalesAnalysis from "@/components/admin/sales-analysis";
 import { useAuth } from "@/components/auth-provider";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -28,6 +29,7 @@ export default function AdminDashboard() {
           <Card><CardHeader><Skeleton className="h-5 w-24" /></CardHeader><CardContent><Skeleton className="h-8 w-32" /></CardContent></Card>
           <Card><CardHeader><Skeleton className="h-5 w-24" /></CardHeader><CardContent><Skeleton className="h-8 w-32" /></CardContent></Card>
         </div>
+        <Card><CardHeader><Skeleton className="h-6 w-48" /></CardHeader><CardContent><Skeleton className="h-48 w-full" /></CardContent></Card>
         <Card><CardHeader><Skeleton className="h-6 w-48" /></CardHeader><CardContent><Skeleton className="h-24 w-full" /></CardContent></Card>
       </div>
     );
@@ -42,6 +44,9 @@ export default function AdminDashboard() {
       
       <Suspense fallback={<p>Loading dashboard...</p>}>
         <AdminDashboardContent />
+      </Suspense>
+      <Suspense fallback={<p>Loading analysis...</p>}>
+        <SalesAnalysis />
       </Suspense>
       <Suspense fallback={<p>Loading alerts...</p>}>
         <LowStockAlerts />

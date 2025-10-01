@@ -1,5 +1,5 @@
 
-import type { Product, Sale } from './types';
+import type { Product, Sale, SaleWithProduct } from './types';
 import { db } from './firebase';
 import { 
   collection, 
@@ -15,6 +15,8 @@ import {
   serverTimestamp,
   deleteDoc,
   runTransaction,
+  getDoc,
+  Timestamp,
 } from 'firebase/firestore';
 
 export async function getProducts(options?: { limit?: number }): Promise<Product[]> {
@@ -41,6 +43,38 @@ export async function getSales(): Promise<Sale[]> {
     });
     return sales;
 }
+
+
+export async function getSalesWithProductDetails(): Promise<SaleWithProduct[]> {
+    const salesData = await getSales();
+    const productsCache = new Map<string, Product>();
+    
+    const salesWithDetails: SaleWithProduct[] = await Promise.all(
+        salesData.map(async (sale) => {
+            let product: Product | undefined = productsCache.get(sale.productId);
+
+            if (!product) {
+                const productRef = doc(db, 'products', sale.productId);
+                const productSnap = await getDoc(productRef);
+                if (productSnap.exists()) {
+                    product = { id: productSnap.id, ...productSnap.data() } as Product;
+                    productsCache.set(sale.productId, product);
+                }
+            }
+
+            return {
+                ...sale,
+                productName: product?.name || 'Unknown',
+                productCategory: product?.category || 'N/A',
+                productColor: product?.color || 'N/A',
+                productSize: product?.size || 'N/A',
+            };
+        })
+    );
+
+    return salesWithDetails;
+}
+
 
 export async function addProduct(product: Omit<Product, 'id' | 'createdAt' | 'updatedAt'>): Promise<string> {
   const productsRef = collection(db, 'products');
@@ -71,7 +105,6 @@ export async function sellProduct(
     sellingPrice: number
 ): Promise<string> {
     const productRef = doc(db, 'products', productId);
-    const salesRef = collection(db, 'sales');
 
     return runTransaction(db, async (transaction) => {
         const productDoc = await transaction.get(productRef);

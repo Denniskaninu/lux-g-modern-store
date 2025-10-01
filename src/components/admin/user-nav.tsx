@@ -26,7 +26,7 @@ export function UserNav() {
     try {
       await signOut(auth);
       toast({ title: "Logged Out", description: "You have been logged out successfully." });
-      router.push("/login");
+      router.push("/");
     } catch (error: any) {
       toast({
         variant: "destructive",
