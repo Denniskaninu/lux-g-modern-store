@@ -57,9 +57,19 @@ export default function AdminProductsPage() {
     return () => unsubscribe();
   }, [user, isClient]);
 
-  // Render nothing on the server. The AuthProvider will handle redirection.
+  // Render a skeleton on the server and while loading auth.
   if (!isClient || !user) {
-    return null;
+    return (
+      <Card>
+        <CardHeader>
+          <Skeleton className="h-8 w-1/4" />
+          <Skeleton className="h-4 w-1/2" />
+        </CardHeader>
+        <CardContent>
+          <Skeleton className="h-96 w-full" />
+        </CardContent>
+      </Card>
+    );
   }
 
   if (loading) {

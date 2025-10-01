@@ -13,10 +13,15 @@ export default function AdminDashboardContent() {
   const { user } = useAuth();
   const [sales, setSales] = useState<Sale[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    if (!user) {
-      setLoading(false);
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!user || !isClient) {
+      if(isClient) setLoading(false);
       return;
     }
 
@@ -32,7 +37,7 @@ export default function AdminDashboardContent() {
       }
     }
     fetchData();
-  }, [user]);
+  }, [user, isClient]);
 
   const totalRevenue = sales.reduce((sum, sale) => sum + sale.sp * sale.quantity, 0);
   const totalProfit = sales.reduce((sum, sale) => sum + sale.profit, 0);

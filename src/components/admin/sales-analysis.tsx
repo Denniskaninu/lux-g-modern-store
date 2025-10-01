@@ -22,10 +22,15 @@ export default function SalesAnalysis() {
   const [sales, setSales] = useState<SaleWithProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const [timePeriod, setTimePeriod] = useState<TimePeriod>('month');
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    if (!user) {
-      setLoading(false);
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!user || !isClient) {
+      if (isClient) setLoading(false);
       return;
     }
 
@@ -41,7 +46,7 @@ export default function SalesAnalysis() {
       }
     }
     fetchData();
-  }, [user]);
+  }, [user, isClient]);
   
   const filteredSales = useMemo(() => {
     const now = new Date();

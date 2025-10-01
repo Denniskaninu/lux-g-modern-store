@@ -15,10 +15,15 @@ export default function LowStockAlerts() {
   const [alerts, setAlerts] = useState<LowStockAlertsOutput['alerts']>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    if (!user) {
-      setLoading(false);
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!user || !isClient) {
+       if (isClient) setLoading(false);
       return;
     }
 
@@ -40,7 +45,7 @@ export default function LowStockAlerts() {
     };
 
     fetchAlerts();
-  }, [user]);
+  }, [user, isClient]);
 
   if (loading) {
     return (
