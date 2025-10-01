@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import LowStockAlerts from "@/components/admin/low-stock-alerts";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -13,6 +13,10 @@ export default function AdminDashboard() {
     setIsClient(true);
   }, []);
 
+  if (!isClient) {
+    return null; // Return null on the server to avoid any rendering issues
+  }
+
   return (
     <div className="flex flex-col gap-8">
       <div>
@@ -20,33 +24,8 @@ export default function AdminDashboard() {
         <p className="text-muted-foreground">Here's an overview of your store's performance.</p>
       </div>
       
-      {!isClient ? (
-        <>
-          <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
-            <Card><CardHeader><Skeleton className="h-5 w-24" /></CardHeader><CardContent><Skeleton className="h-8 w-32" /></CardContent></Card>
-            <Card><CardHeader><Skeleton className="h-5 w-24" /></CardHeader><CardContent><Skeleton className="h-8 w-32" /></CardContent></Card>
-            <Card><CardHeader><Skeleton className="h-5 w-24" /></CardHeader><CardContent><Skeleton className="h-8 w-32" /></CardContent></Card>
-          </div>
-          <Card><CardHeader><Skeleton className="h-6 w-48" /></CardHeader><CardContent><Skeleton className="h-24 w-full" /></CardContent></Card>
-        </>
-      ) : (
-        <>
-          <Suspense fallback={
-            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
-                <Card><CardHeader><Skeleton className="h-5 w-24" /></CardHeader><CardContent><Skeleton className="h-8 w-32" /></CardContent></Card>
-                <Card><CardHeader><Skeleton className="h-5 w-24" /></CardHeader><CardContent><Skeleton className="h-8 w-32" /></CardContent></Card>
-                <Card><CardHeader><Skeleton className="h-5 w-24" /></CardHeader><CardContent><Skeleton className="h-8 w-32" /></CardContent></Card>
-            </div>
-          }>
-            <AdminDashboardContent />
-          </Suspense>
-
-          <Suspense fallback={<Card><CardHeader><Skeleton className="h-6 w-48" /></CardHeader><CardContent><Skeleton className="h-24 w-full" /></CardContent></Card>}>
-            <LowStockAlerts />
-          </Suspense>
-        </>
-      )}
-
+      <AdminDashboardContent />
+      <LowStockAlerts />
     </div>
   );
 }
