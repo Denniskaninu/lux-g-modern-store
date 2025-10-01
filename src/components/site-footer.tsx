@@ -24,7 +24,7 @@ export default function SiteFooter() {
                 </span>
             </div>
             <p className="text-muted-foreground max-w-md">
-              Dealer in: ..Trendy men fashion ie designer jeans, jackets, shirts, tshirts shoes, sandals, inner wears, watches, caps, beanies, belts etc.
+              Dealer in:Trendy men fashion ie designer jeans, jackets, shirts, tshirts shoes, sandals, inner wears, watches, caps, beanies, belts etc.
             </p>
           </div>
           <div>
