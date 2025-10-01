@@ -47,7 +47,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   
   const isAdminRoute = pathname.startsWith('/admin');
   if (isAdminRoute && !user) {
-    return null; // Don't render admin pages if not logged in
+    // While loading, or if not a user on an admin route, don't render children.
+    // This is the key change to prevent server-side rendering crashes.
+    return null;
   }
 
 

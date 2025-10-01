@@ -29,15 +29,18 @@ export default function AdminProductsPage() {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    // This ensures this code runs only on the client.
     setIsClient(true);
   }, []);
   
   useEffect(() => {
+    // Only fetch data if we are on the client and the user is authenticated.
     if (!isClient || !user) {
       if (isClient) setLoading(false);
       return;
     }
 
+    setLoading(true);
     const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const productsData: Product[] = [];
@@ -54,7 +57,8 @@ export default function AdminProductsPage() {
     return () => unsubscribe();
   }, [user, isClient]);
 
-  if (!isClient) {
+  // Render nothing on the server. The AuthProvider will handle redirection.
+  if (!isClient || !user) {
     return null;
   }
 

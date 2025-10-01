@@ -18,7 +18,6 @@ export async function POST(request: Request) {
   try {
     const uploadResult = await cloudinary.uploader.upload(file, {
       folder: folder || 'lux_g_store', // Default folder
-      resource_type: 'image',
     });
 
     return NextResponse.json({
