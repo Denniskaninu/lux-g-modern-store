@@ -1,20 +1,20 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import LowStockAlerts from "@/components/admin/low-stock-alerts";
-import { Skeleton } from "@/components/ui/skeleton";
 import AdminDashboardContent from "@/components/admin/admin-dashboard-content";
+import LowStockAlerts from "@/components/admin/low-stock-alerts";
+import { useAuth } from "@/components/auth-provider";
 
 export default function AdminDashboard() {
   const [isClient, setIsClient] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  if (!isClient) {
-    return null; // Return null on the server to avoid any rendering issues
+  if (!isClient || !user) {
+    return null; // Render nothing on the server or until authenticated on the client
   }
 
   return (

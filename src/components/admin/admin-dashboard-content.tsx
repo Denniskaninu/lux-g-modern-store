@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -7,6 +6,7 @@ import { formatCurrency } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DollarSign, ShoppingCart } from "lucide-react";
 import type { Sale } from "@/lib/types";
+import { Skeleton } from "../ui/skeleton";
 
 export default function AdminDashboardContent() {
   const [sales, setSales] = useState<Sale[]>([]);
@@ -31,7 +31,13 @@ export default function AdminDashboardContent() {
   const totalSales = sales.length;
 
   if (loading) {
-     return null;
+     return (
+        <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+            <Card><CardHeader><Skeleton className="h-5 w-24" /></CardHeader><CardContent><Skeleton className="h-8 w-32" /></CardContent></Card>
+            <Card><CardHeader><Skeleton className="h-5 w-24" /></CardHeader><CardContent><Skeleton className="h-8 w-32" /></CardContent></Card>
+            <Card><CardHeader><Skeleton className="h-5 w-24" /></CardHeader><CardContent><Skeleton className="h-8 w-32" /></CardContent></Card>
+        </div>
+     );
   }
 
   return (
