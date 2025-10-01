@@ -7,13 +7,21 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DollarSign, ShoppingCart } from "lucide-react";
 import type { Sale } from "@/lib/types";
 import { Skeleton } from "../ui/skeleton";
+import { useAuth } from "../auth-provider";
 
 export default function AdminDashboardContent() {
+  const { user } = useAuth();
   const [sales, setSales] = useState<Sale[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!user) {
+      setLoading(false);
+      return;
+    }
+
     async function fetchData() {
+      setLoading(true);
       try {
         const salesData = await getSales();
         setSales(salesData);
@@ -24,7 +32,7 @@ export default function AdminDashboardContent() {
       }
     }
     fetchData();
-  }, []);
+  }, [user]);
 
   const totalRevenue = sales.reduce((sum, sale) => sum + sale.sp * sale.quantity, 0);
   const totalProfit = sales.reduce((sum, sale) => sum + sale.profit, 0);

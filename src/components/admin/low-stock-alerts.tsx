@@ -8,17 +8,23 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Lightbulb, TriangleAlert } from "lucide-react";
 import { Product } from "@/lib/types";
 import { Skeleton } from "../ui/skeleton";
+import { useAuth } from "../auth-provider";
 
 export default function LowStockAlerts() {
+  const { user } = useAuth();
   const [alerts, setAlerts] = useState<LowStockAlertsOutput['alerts']>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!user) {
+      setLoading(false);
+      return;
+    }
+
     const fetchAlerts = async () => {
       setLoading(true);
       try {
-        // Fetch products and sales in parallel for efficiency
         const [productsData, salesData] = await Promise.all([getProducts(), getSales()]);
         setProducts(productsData);
 
@@ -28,14 +34,13 @@ export default function LowStockAlerts() {
         }
       } catch (error) {
         console.error("Error generating low stock alerts:", error);
-        // Optionally, set an error state here to show in the UI
       } finally {
         setLoading(false);
       }
     };
 
     fetchAlerts();
-  }, []);
+  }, [user]);
 
   if (loading) {
     return (
