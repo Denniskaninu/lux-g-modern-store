@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getProducts } from "@/lib/data";
 import {
   Card,
   CardContent,
@@ -18,14 +17,27 @@ import {
   onSnapshot,
   query,
   orderBy,
+  where,
 } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import { useAuth } from "@/components/auth-provider";
 
 export default function AdminProductsPage() {
+  const { user } = useAuth();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+  
+  useEffect(() => {
+    if (!isClient || !user) {
+      if (isClient) setLoading(false);
+      return;
+    }
+
     const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const productsData: Product[] = [];
@@ -34,10 +46,17 @@ export default function AdminProductsPage() {
       });
       setProducts(productsData);
       setLoading(false);
+    }, (error) => {
+      console.error("Error fetching products:", error);
+      setLoading(false);
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [user, isClient]);
+
+  if (!isClient) {
+    return null;
+  }
 
   if (loading) {
     return (
