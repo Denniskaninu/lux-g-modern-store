@@ -1,0 +1,89 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { getProducts, getSales } from "@/lib/data";
+import { generateLowStockAlerts, LowStockAlertsOutput } from "@/ai/flows/low-stock-alerts";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Lightbulb, TriangleAlert } from "lucide-react";
+import { Product } from "@/lib/types";
+import { Skeleton } from "../ui/skeleton";
+
+export default function LowStockAlerts() {
+  const [alerts, setAlerts] = useState<LowStockAlertsOutput['alerts']>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAlerts = async () => {
+      setLoading(true);
+      try {
+        // Fetch products and sales in parallel for efficiency
+        const [productsData, salesData] = await Promise.all([getProducts(), getSales()]);
+        setProducts(productsData);
+
+        if (productsData.length > 0 && salesData.length > 0) {
+            const result = await generateLowStockAlerts({ products: productsData, sales: salesData });
+            setAlerts(result.alerts);
+        }
+      } catch (error) {
+        console.error("Error generating low stock alerts:", error);
+        // Optionally, set an error state here to show in the UI
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAlerts();
+  }, []);
+
+  if (loading) {
+    return (
+         <Card>
+            <CardHeader>
+                <Skeleton className="h-6 w-48" />
+            </CardHeader>
+            <CardContent>
+                <Skeleton className="h-24 w-full" />
+            </CardContent>
+         </Card>
+    )
+  }
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <Lightbulb className="h-5 w-5 text-accent-foreground" />
+          Intelligent Alerts
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        {alerts.length > 0 ? (
+          <div className="space-y-4">
+            {alerts.map((alert) => {
+              const product = products.find(p => p.id === alert.productId);
+              return (
+                <Alert key={alert.productId} variant="destructive">
+                  <TriangleAlert className="h-4 w-4" />
+                  <AlertTitle>
+                    {product ? `${product.name} (${product.color}, ${product.size})` : 'Low Stock Warning'}
+                  </AlertTitle>
+                  <AlertDescription>
+                    {alert.message}
+                    {product && ` Current stock: ${product.quantity}.`}
+                  </AlertDescription>
+                </Alert>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="text-center text-muted-foreground py-8">
+            <p>All stock levels are looking good!</p>
+            <p className="text-sm">No restocking alerts at this time.</p>
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+}

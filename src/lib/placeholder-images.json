@@ -1,0 +1,40 @@
+{
+  "placeholderImages": [
+    {
+      "id": "nike-air-max-black",
+      "description": "Black Nike Air Max shoes on a clean background.",
+      "imageUrl": "https://images.unsplash.com/photo-1734956093501-811018732398?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxibGFjayUyMHNob2VzfGVufDB8fHx8MTc1OTI1NTAxN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "black shoes"
+    },
+    {
+      "id": "nike-air-max-white",
+      "description": "White Nike Air Max shoes from a side angle.",
+      "imageUrl": "https://images.unsplash.com/photo-1505248254168-1de4e1abfa78?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx3aGl0ZSUyMHNob2VzfGVufDB8fHx8MTc1OTI5NzA1M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "white shoes"
+    },
+    {
+      "id": "plain-t-shirt-white",
+      "description": "A plain white cotton t-shirt, folded neatly.",
+      "imageUrl": "https://images.unsplash.com/photo-1574180566232-aaad1b5b8450?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx3aGl0ZSUyMHQtc2hpcnR8ZW58MHx8fHwxNzU5MjQ5ODgwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "white t-shirt"
+    },
+    {
+      "id": "plain-t-shirt-black",
+      "description": "A plain black cotton t-shirt on a hanger.",
+      "imageUrl": "https://images.unsplash.com/photo-1711641066067-3c1d03492345?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxibGFjayUyMHQtc2hpcnR8ZW58MHx8fHwxNzU5MjYxNjM2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "black t-shirt"
+    },
+    {
+      "id": "denim-jeans-blue",
+      "description": "Blue denim jeans, classic fit.",
+      "imageUrl": "https://images.unsplash.com/photo-1604176354204-9268737828e4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxibHVlJTIwamVhbnN8ZW58MHx8fHwxNzU5MTk3NjU1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "blue jeans"
+    },
+    {
+      "id": "leather-sandals-brown",
+      "description": "Brown leather sandals for summer.",
+      "imageUrl": "https://images.unsplash.com/photo-1653157851827-0818a7f4ec1c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxicm93biUyMHNhbmRhbHN8ZW58MHx8fHwxNzU5Mjk3MDUzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "brown sandals"
+    }
+  ]
+}
