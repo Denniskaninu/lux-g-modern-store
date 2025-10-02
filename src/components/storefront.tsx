@@ -86,6 +86,19 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
   
   const hasActiveFilters = searchTerm || filters.category || filters.color || filters.size;
 
+  const galleryImages = useMemo(() => {
+    if (!products || products.length === 0) {
+      return Array.from({ length: 4 }).map((_, i) => ({
+        imageUrl: `https://picsum.photos/seed/ig${i + 1}/400/400`,
+        imageHint: 'student fashion',
+        name: `Placeholder Image ${i + 1}`
+      }));
+    }
+    const shuffled = [...products].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, 4);
+  }, [products]);
+
+
   return (
     <div className="space-y-16 md:space-y-24">
        <section className="relative text-center py-20 md:py-32 overflow-hidden rounded-b-3xl bg-card">
@@ -310,12 +323,12 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
                 <h2 className="text-3xl font-headline font-bold">Join The Movement</h2>
                 <p className="text-muted-foreground mt-2 max-w-xl mx-auto">Show off your style! Tag us on Instagram with <span className="font-bold text-primary">#LuxGFiti</span> to get featured.</p>
                 <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {[1, 2, 3, 4].map(i => (
+                    {galleryImages.map((product, i) => (
                         <div key={i} className="aspect-square relative rounded-lg overflow-hidden group">
                              <Image
-                                src={`https://picsum.photos/seed/ig${i}/400/400`}
-                                alt={`Instagram user post ${i}`}
-                                data-ai-hint="student fashion streetwear"
+                                src={product.imageUrl}
+                                alt={product.name}
+                                data-ai-hint={product.imageHint || 'student fashion'}
                                 fill
                                 className="object-cover transition-transform duration-300 group-hover:scale-110"
                             />
@@ -390,3 +403,4 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
     </div>
   );
 }
+
