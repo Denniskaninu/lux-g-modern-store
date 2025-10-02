@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import ProductCard from './product-card';
-import { Search, X, ArrowDown, Shirt, AppWindow, Gem, Package, Droplets, CheckCircle, Flame, Sparkles, MapPin, Phone } from 'lucide-react';
+import { Search, X, Shirt, Gem, Droplets, Package, CheckCircle, Sparkles, MapPin, Phone, Watch, Redo } from 'lucide-react';
 import { WhatsAppIcon } from './icons';
 import Image from 'next/image';
 import { Card, CardContent } from './ui/card';
@@ -111,36 +111,42 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
       </section>
       
       <section className="container">
-          <div className="text-center mb-10">
-              <h2 className="text-3xl font-headline font-bold">Shop by Category</h2>
-              <p className="text-muted-foreground mt-2">Find exactly what you're looking for.</p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-              <div onClick={() => handleFilterChange('category')('T-Shirts')} className="cursor-pointer group">
-                  <Card className="flex flex-col items-center justify-center p-6 aspect-square text-center transition-all duration-300 hover:bg-primary/10 hover:-translate-y-1">
-                      <Shirt className="h-12 w-12 text-primary mb-4" />
-                      <h3 className="font-bold text-lg">T-Shirts & Jerseys</h3>
-                  </Card>
-              </div>
-              <div onClick={() => handleFilterChange('category')('Jeans')} className="cursor-pointer group">
-                   <Card className="flex flex-col items-center justify-center p-6 aspect-square text-center transition-all duration-300 hover:bg-primary/10 hover:-translate-y-1">
-                      <Gem className="h-12 w-12 text-primary mb-4" />
-                      <h3 className="font-bold text-lg">Jeans & Trousers</h3>
-                  </Card>
-              </div>
-              <div onClick={() => handleFilterChange('category')('Shoes')} className="cursor-pointer group">
-                   <Card className="flex flex-col items-center justify-center p-6 aspect-square text-center transition-all duration-300 hover:bg-primary/10 hover:-translate-y-1">
-                      <Droplets className="h-12 w-12 text-primary mb-4" />
-                      <h3 className="font-bold text-lg">Sneakers & Shoes</h3>
-                  </Card>
-              </div>
-              <div onClick={() => handleFilterChange('category')('Accessories')} className="cursor-pointer group">
-                   <Card className="flex flex-col items-center justify-center p-6 aspect-square text-center transition-all duration-300 hover:bg-primary/10 hover:-translate-y-1">
-                      <Package className="h-12 w-12 text-primary mb-4" />
-                      <h3 className="font-bold text-lg">Accessories</h3>
-                  </Card>
-              </div>
-          </div>
+        <div className="text-center">
+            <h2 className="text-3xl font-headline font-bold">From Campus Vibe to Weekend Style</h2>
+            <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">We've got everything you need to look sharp. Find your perfect fit from our collection.</p>
+        </div>
+        <div className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 text-center">
+            <div className="flex flex-col items-center gap-2">
+                <div className="bg-primary/10 p-4 rounded-full">
+                    <Gem className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="font-semibold">Classy Jeans</h3>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+                <div className="bg-primary/10 p-4 rounded-full">
+                    <Shirt className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="font-semibold">T-Shirts &amp; Silk Shirts</h3>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+                <div className="bg-primary/10 p-4 rounded-full">
+                    <Redo className="h-8 w-8 text-primary -scale-x-100" />
+                </div>
+                <h3 className="font-semibold">Stylish Toppers</h3>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+                <div className="bg-primary/10 p-4 rounded-full">
+                    <Droplets className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="font-semibold">Fresh Sneakers</h3>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+                <div className="bg-primary/10 p-4 rounded-full">
+                    <Watch className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="font-semibold">Accessories &amp; Watches</h3>
+            </div>
+        </div>
       </section>
 
       <section className="bg-card py-16">
@@ -221,8 +227,8 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
       <div id="collection" className="scroll-mt-20">
         <div className="sticky top-[64px] z-30 bg-background/80 backdrop-blur-sm border-y">
             <div className="container py-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 items-center">
-                  <div className="relative md:col-span-2 lg:col-span-1">
+              <div className="flex flex-col gap-2 md:gap-4 md:flex-row items-center">
+                  <div className="relative w-full md:flex-1">
                       <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                       <Input
                           placeholder="Search by name or category..."
@@ -231,27 +237,29 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
                           className="pl-10 w-full"
                       />
                   </div>
-                  <Select value={filters.category} onValueChange={handleFilterChange('category')}>
-                      <SelectTrigger className="w-full"><SelectValue placeholder="All Categories" /></SelectTrigger>
-                      <SelectContent>
-                          <SelectItem value="all">All Categories</SelectItem>
-                          {categories.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
-                      </SelectContent>
-                  </Select>
-                  <Select value={filters.color} onValueChange={handleFilterChange('color')}>
-                      <SelectTrigger className="w-full"><SelectValue placeholder="All Colors" /></SelectTrigger>
-                      <SelectContent>
-                          <SelectItem value="all">All Colors</SelectItem>
-                          {colors.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
-                      </SelectContent>
-                  </Select>
-                  <Select value={filters.size} onValueChange={handleFilterChange('size')}>
-                      <SelectTrigger className="w-full"><SelectValue placeholder="All Sizes" /></SelectTrigger>
-                      <SelectContent>
-                          <SelectItem value="all">All Sizes</SelectItem>
-                          {sizes.map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}
-                      </SelectContent>
-                  </Select>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 md:gap-4 w-full md:w-auto">
+                    <Select value={filters.category} onValueChange={handleFilterChange('category')}>
+                        <SelectTrigger className="w-full"><SelectValue placeholder="All Categories" /></SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">All Categories</SelectItem>
+                            {categories.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                        </SelectContent>
+                    </Select>
+                    <Select value={filters.color} onValueChange={handleFilterChange('color')}>
+                        <SelectTrigger className="w-full"><SelectValue placeholder="All Colors" /></SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">All Colors</SelectItem>
+                            {colors.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                        </SelectContent>
+                    </Select>
+                    <Select value={filters.size} onValueChange={handleFilterChange('size')}>
+                        <SelectTrigger className="w-full"><SelectValue placeholder="All Sizes" /></SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">All Sizes</SelectItem>
+                            {sizes.map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}
+                        </SelectContent>
+                    </Select>
+                  </div>
               </div>
               {hasActiveFilters && (
                   <div className="flex justify-end mt-2">
