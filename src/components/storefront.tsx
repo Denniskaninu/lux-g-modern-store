@@ -90,7 +90,7 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
     if (!products || products.length === 0) {
       return Array.from({ length: 4 }).map((_, i) => ({
         imageUrl: `https://picsum.photos/seed/ig${i + 1}/400/400`,
-        imageHint: 'student fashion',
+        imageHint: 'comrade fashion',
         name: `Placeholder Image ${i + 1}`
       }));
     }
@@ -106,7 +106,7 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
               <Image
                   src="https://picsum.photos/seed/fashionkenya/1200/800"
                   alt="Stylish models wearing modern fashion"
-                  data-ai-hint="stylish students kenyan fashion"
+                  data-ai-hint="stylish comrades kenyan fashion"
                   fill
                   className="object-cover opacity-20"
               />
@@ -218,7 +218,7 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
               </div>
               <div className="aspect-square relative rounded-lg overflow-hidden">
                    <Image
-                      src="https://picsum.photos/seed/storefront/600/600"
+                      src={locationImageUrl || "https://picsum.photos/seed/storefront/600/600"}
                       alt="Interior of a modern clothing store"
                       data-ai-hint="clothing store interior"
                       fill
@@ -328,7 +328,7 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
                              <Image
                                 src={product.imageUrl}
                                 alt={product.name}
-                                data-ai-hint={product.imageHint || 'student fashion'}
+                                data-ai-hint={product.imageHint || 'comrade fashion'}
                                 fill
                                 className="object-cover transition-transform duration-300 group-hover:scale-110"
                             />
