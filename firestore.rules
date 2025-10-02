@@ -1,17 +1,15 @@
-
 rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Products can be read by anyone, but only created, updated, or deleted
-    // by authenticated users (admins).
+    // Products: Public can read, only admins can write
     match /products/{productId} {
       allow read: if true;
       allow write: if request.auth != null;
     }
 
-    // Sales data can only be read or written by authenticated users.
+    // Sales: Only admins can read and write
     match /sales/{saleId} {
       allow read, write: if request.auth != null;
     }
