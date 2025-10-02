@@ -21,11 +21,12 @@ export default function SiteFooter() {
   const currentYear = new Date().getFullYear();
   const [locationImageUrl, setLocationImageUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const [isClient, setIsClient] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
+    setIsMounted(true);
     const fetchSettings = async () => {
+      setLoading(true);
       try {
         const settingsRef = doc(db, "settings", "store");
         const docSnap = await getDoc(settingsRef);
@@ -40,7 +41,7 @@ export default function SiteFooter() {
     };
     fetchSettings();
   }, []);
-
+  
   return (
     <footer className="border-t bg-card">
       <div className="container py-12">
@@ -98,7 +99,7 @@ export default function SiteFooter() {
 
             <div>
               <h4 className="font-headline font-semibold mb-4 text-primary">Our Location</h4>
-              {!isClient || loading ? (
+              {!isMounted || loading ? (
                   <Skeleton className="w-full aspect-video rounded-lg" />
               ) : locationImageUrl ? (
                   <div className="overflow-hidden rounded-lg border aspect-video relative">
