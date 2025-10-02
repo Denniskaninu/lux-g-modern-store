@@ -19,110 +19,11 @@ import { Skeleton } from './ui/skeleton';
 
 export default function SiteFooter() {
   const currentYear = new Date().getFullYear();
-  const [locationImageUrl, setLocationImageUrl] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    // This effect runs only on the client, after the component has mounted.
-    setIsClient(true);
-
-    const fetchSettings = async () => {
-      setLoading(true);
-      try {
-        const settingsRef = doc(db, "settings", "store");
-        const docSnap = await getDoc(settingsRef);
-        if (docSnap.exists() && docSnap.data().locationImageUrl) {
-          setLocationImageUrl(docSnap.data().locationImageUrl);
-        }
-      } catch (error) {
-        console.error("Error fetching location image:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchSettings();
-  }, []);
   
   return (
     <footer className="border-t bg-card">
-      <div className="container py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          <div className="flex flex-col gap-4 lg:col-span-1">
-            <div className="flex items-baseline gap-2">
-                <Logo />
-                <span className="font-headline text-lg font-bold uppercase tracking-wider text-foreground">
-                    MODERN COLLECTION
-                </span>
-            </div>
-            <p className="text-muted-foreground max-w-md">
-              Dealer in: Trendy men fashion ie designer jeans, jackets, shirts, t-shirts, shoes, sandals, inner wears, watches, caps, beanies, belts etc.
-            </p>
-            <div className="mt-4">
-                <h4 className="font-headline font-semibold mb-2 text-primary">Follow Us</h4>
-                <div className="flex space-x-1">
-                <Button variant="ghost" size="icon" asChild>
-                    <a href="#" aria-label="Facebook">
-                    <Facebook className="h-5 w-5" />
-                    </a>
-                </Button>
-                <Button variant="ghost" size="icon" asChild>
-                    <a href="#" aria-label="Instagram">
-                    <Instagram className="h-5 w-5" />
-                    </a>
-                </Button>
-                <Button variant="ghost" size="icon" asChild>
-                    <a href="#" aria-label="Twitter">
-                    <Twitter className="h-5 w-5" />
-                    </a>
-                </Button>
-                </div>
-            </div>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:col-span-2">
-            <div className="space-y-4">
-              <h4 className="font-headline font-semibold text-primary">Find Us</h4>
-              <address className="not-italic text-muted-foreground space-y-4">
-                  <div className='flex items-start gap-3'>
-                      <MapPin className="h-5 w-5 mt-1 text-primary shrink-0" />
-                      <span>Karatina University, Overfourty Business Centre, Karatina</span>
-                  </div>
-                  <div className='flex items-center gap-3'>
-                      <Mail className="h-5 w-5 text-primary shrink-0" />
-                      <a href="mailto:support@luxg.co.ke" className="hover:text-primary transition-colors">support@luxg.co.ke</a>
-                  </div>
-                  <div className='flex items-center gap-3'>
-                      <Phone className="h-5 w-5 text-primary shrink-0" />
-                      <a href="tel:+254741791259" className="hover:text-primary transition-colors">+254 741 791 259</a>
-                  </div>
-              </address>
-            </div>
-
-            <div>
-              <h4 className="font-headline font-semibold mb-4 text-primary">Our Location</h4>
-              {!isClient ? (
-                  <Skeleton className="w-full aspect-video rounded-lg" />
-              ) : loading ? (
-                  <Skeleton className="w-full aspect-video rounded-lg" />
-              ) : locationImageUrl ? (
-                  <div className="overflow-hidden rounded-lg border aspect-video relative">
-                      <Image 
-                          src={locationImageUrl} 
-                          alt="Store location map" 
-                          fill
-                          className="object-cover"
-                      />
-                  </div>
-              ) : (
-                  <div className="aspect-video rounded-lg bg-muted flex items-center justify-center text-center p-4 text-sm text-muted-foreground">
-                      Location image not available.
-                  </div>
-              )}
-            </div>
-          </div>
-        </div>
-        <div className="mt-12 border-t pt-6 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left gap-4">
+      <div className="container py-8">
+        <div className="mt-8 border-t pt-6 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left gap-4">
           <p className="text-sm text-muted-foreground">&copy; {currentYear} LUX G MODERN COLLECTION. All rights reserved.</p>
           <TooltipProvider>
             <Tooltip>

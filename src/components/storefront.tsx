@@ -7,7 +7,10 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import ProductCard from './product-card';
-import { Search, X, ArrowDown } from 'lucide-react';
+import { Search, X, ArrowDown, Shirt, AppWindow, Gem, Package, Droplets, CheckCircle, Flame, Sparkles, MapPin, Phone } from 'lucide-react';
+import { WhatsAppIcon } from './icons';
+import Image from 'next/image';
+import { Card, CardContent } from './ui/card';
 
 const marketingWords = ["Bei Poa", "Nguo Fiti", "Original", "Mali Safi"];
 
@@ -43,6 +46,8 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
 
   const handleFilterChange = (filterType: 'category' | 'color' | 'size') => (value: string) => {
     setFilters(prev => ({ ...prev, [filterType]: value === 'all' ? '' : value }));
+     // Scroll to collection after filter change
+    document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
   
   const clearFilters = () => {
@@ -64,97 +69,298 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
   const hasActiveFilters = searchTerm || filters.category || filters.color || filters.size;
 
   return (
-    <div className="space-y-8">
-       <section className="relative flex flex-col items-center justify-center text-center py-20 md:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-transparent z-10" />
-        <div className="absolute inset-0 bg-background/50 z-0" />
-        <div className="container relative z-20">
-          <h1 className="font-headline text-4xl md:text-6xl font-bold tracking-tight text-primary">Chomoka na Nguo Fiti!</h1>
-          {isClient && (
-            <div className="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto h-16 md:h-8 flex flex-col md:flex-row items-center justify-center gap-2">
-                <p>Get the best deals on</p>
-                <div className="relative h-8 w-32 font-bold text-foreground">
-                    {marketingWords.map(word => (
-                        <span key={word} className={`absolute inset-0 transition-all duration-500 ease-in-out ${word === currentWord ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
-                            {word}.
-                        </span>
+    <div className="space-y-16 md:space-y-24">
+       <section className="relative text-center py-20 md:py-32 overflow-hidden rounded-b-3xl bg-card">
+          <div className="absolute inset-0 z-0">
+              <Image
+                  src="https://picsum.photos/seed/fashionkenya/1200/800"
+                  alt="Stylish models wearing modern fashion"
+                  data-ai-hint="stylish students kenyan fashion"
+                  fill
+                  className="object-cover opacity-20"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
+          </div>
+
+          <div className="container relative z-10 flex flex-col items-center">
+              <div className="bg-primary/10 text-primary font-bold py-1 px-4 rounded-full mb-4 animate-bounce">
+                  Student Discounts – Up to 20% Off!
+              </div>
+
+              <h1 className="font-headline text-4xl md:text-7xl font-bold tracking-tight text-foreground">
+                  Chomoka na Nguo Fiti!
+              </h1>
+              
+              <div className="mt-4 text-lg md:text-xl text-muted-foreground h-8 flex items-center justify-center gap-2 font-semibold">
+                  {marketingWords.map((word, index) => (
+                      <span key={word} className={`transition-all duration-300 ${index > 0 ? 'hidden md:inline' : 'inline'}`}>
+                          {word}{index < marketingWords.length - 1 && <span className="mx-2 text-primary">•</span>}
+                      </span>
+                  ))}
+              </div>
+
+              <div className="mt-8 flex flex-col sm:flex-row gap-4">
+                  <Button size="lg" onClick={() => document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' })}>
+                      Shop Now
+                  </Button>
+                  <Button size="lg" variant="outline" onClick={() => document.getElementById('location')?.scrollIntoView({ behavior: 'smooth' })}>
+                      Visit Our Store in Karatina
+                  </Button>
+              </div>
+          </div>
+      </section>
+      
+      <section className="container">
+          <div className="text-center mb-10">
+              <h2 className="text-3xl font-headline font-bold">Shop by Category</h2>
+              <p className="text-muted-foreground mt-2">Find exactly what you're looking for.</p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+              <div onClick={() => handleFilterChange('category')('T-Shirts')} className="cursor-pointer group">
+                  <Card className="flex flex-col items-center justify-center p-6 aspect-square text-center transition-all duration-300 hover:bg-primary/10 hover:-translate-y-1">
+                      <Shirt className="h-12 w-12 text-primary mb-4" />
+                      <h3 className="font-bold text-lg">T-Shirts & Jerseys</h3>
+                  </Card>
+              </div>
+              <div onClick={() => handleFilterChange('category')('Jeans')} className="cursor-pointer group">
+                   <Card className="flex flex-col items-center justify-center p-6 aspect-square text-center transition-all duration-300 hover:bg-primary/10 hover:-translate-y-1">
+                      <Gem className="h-12 w-12 text-primary mb-4" />
+                      <h3 className="font-bold text-lg">Jeans & Trousers</h3>
+                  </Card>
+              </div>
+              <div onClick={() => handleFilterChange('category')('Shoes')} className="cursor-pointer group">
+                   <Card className="flex flex-col items-center justify-center p-6 aspect-square text-center transition-all duration-300 hover:bg-primary/10 hover:-translate-y-1">
+                      <Droplets className="h-12 w-12 text-primary mb-4" />
+                      <h3 className="font-bold text-lg">Sneakers & Shoes</h3>
+                  </Card>
+              </div>
+              <div onClick={() => handleFilterChange('category')('Accessories')} className="cursor-pointer group">
+                   <Card className="flex flex-col items-center justify-center p-6 aspect-square text-center transition-all duration-300 hover:bg-primary/10 hover:-translate-y-1">
+                      <Package className="h-12 w-12 text-primary mb-4" />
+                      <h3 className="font-bold text-lg">Accessories</h3>
+                  </Card>
+              </div>
+          </div>
+      </section>
+
+      <section className="bg-card py-16">
+          <div className="container grid md:grid-cols-2 gap-12 items-center">
+              <div>
+                  <h2 className="text-3xl font-headline font-bold">Why Shop with Us?</h2>
+                  <p className="text-muted-foreground mt-2">Get the best style, quality, and price, right next to you.</p>
+                  <div className="mt-8 space-y-4">
+                      <div className="flex items-start gap-4">
+                          <CheckCircle className="h-6 w-6 text-green-500 mt-1 shrink-0" />
+                          <div>
+                              <h4 className="font-bold">Affordable Student Prices</h4>
+                              <p className="text-muted-foreground text-sm">Look sharp without breaking the bank. Tunajua budget!</p>
+                          </div>
+                      </div>
+                      <div className="flex items-start gap-4">
+                          <CheckCircle className="h-6 w-6 text-green-500 mt-1 shrink-0" />
+                          <div>
+                              <h4 className="font-bold">Trendy, Latest Streetwear</h4>
+                              <p className="text-muted-foreground text-sm">We stay up-to-date so you can stand out.</p>
+                          </div>
+                      </div>
+                       <div className="flex items-start gap-4">
+                          <CheckCircle className="h-6 w-6 text-green-500 mt-1 shrink-0" />
+                          <div>
+                              <h4 className="font-bold">Original Quality (Mali Safi)</h4>
+                              <p className="text-muted-foreground text-sm">No fakes. Just durable, quality clothing and shoes.</p>
+                          </div>
+                      </div>
+                      <div className="flex items-start gap-4">
+                          <CheckCircle className="h-6 w-6 text-green-500 mt-1 shrink-0" />
+                          <div>
+                              <h4 className="font-bold">Located Near Campus</h4>
+                              <p className="text-muted-foreground text-sm">Pass by our shop at Karatina University, Overfourty Business Centre.</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div className="aspect-square relative rounded-lg overflow-hidden">
+                   <Image
+                      src="https://picsum.photos/seed/storefront/600/600"
+                      alt="Interior of a modern clothing store"
+                      data-ai-hint="clothing store interior"
+                      fill
+                      className="object-cover transition-transform duration-300 hover:scale-105"
+                  />
+              </div>
+          </div>
+      </section>
+
+       <section className="container">
+          <div className="text-center mb-10">
+              <h2 className="text-3xl font-headline font-bold flex items-center justify-center gap-2">
+                  <Sparkles className="h-8 w-8 text-primary" /> Special Offers
+              </h2>
+              <p className="text-muted-foreground mt-2">Don't miss out on these exclusive deals for students.</p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8">
+              <Card className="p-6 flex flex-col sm:flex-row items-center gap-6 bg-primary/5">
+                  <div className="text-5xl">🔥</div>
+                  <div>
+                      <h3 className="font-bold text-xl">This Week’s Hot Pick</h3>
+                      <p className="text-muted-foreground">Limited edition graphic tees. Grab one before they're gone!</p>
+                      <Button className="mt-4" size="sm" onClick={() => handleFilterChange('category')('T-Shirts')}>View Tees</Button>
+                  </div>
+              </Card>
+               <Card className="p-6 flex flex-col sm:flex-row items-center gap-6 bg-primary/5">
+                  <div className="text-5xl">💸</div>
+                  <div>
+                      <h3 className="font-bold text-xl">Student Bundles</h3>
+                      <p className="text-muted-foreground">Get a discount when you buy 1 Jean + 1 Tee together. Ask in-store!</p>
+                       <Button className="mt-4" size="sm" variant="outline" onClick={() => document.getElementById('location')?.scrollIntoView({ behavior: 'smooth' })}>Find Us</Button>
+                  </div>
+              </Card>
+          </div>
+      </section>
+
+      <div id="collection" className="scroll-mt-20">
+        <div className="sticky top-[64px] z-30 bg-background/80 backdrop-blur-sm border-y">
+            <div className="container py-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 items-center">
+                  <div className="relative md:col-span-2 lg:col-span-1">
+                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                      <Input
+                          placeholder="Search by name or category..."
+                          value={searchTerm}
+                          onChange={(e) => setSearchTerm(e.target.value)}
+                          className="pl-10 w-full"
+                      />
+                  </div>
+                  <Select value={filters.category} onValueChange={handleFilterChange('category')}>
+                      <SelectTrigger className="w-full"><SelectValue placeholder="All Categories" /></SelectTrigger>
+                      <SelectContent>
+                          <SelectItem value="all">All Categories</SelectItem>
+                          {categories.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                      </SelectContent>
+                  </Select>
+                  <Select value={filters.color} onValueChange={handleFilterChange('color')}>
+                      <SelectTrigger className="w-full"><SelectValue placeholder="All Colors" /></SelectTrigger>
+                      <SelectContent>
+                          <SelectItem value="all">All Colors</SelectItem>
+                          {colors.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                      </SelectContent>
+                  </Select>
+                  <Select value={filters.size} onValueChange={handleFilterChange('size')}>
+                      <SelectTrigger className="w-full"><SelectValue placeholder="All Sizes" /></SelectTrigger>
+                      <SelectContent>
+                          <SelectItem value="all">All Sizes</SelectItem>
+                          {sizes.map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}
+                      </SelectContent>
+                  </Select>
+              </div>
+              {hasActiveFilters && (
+                  <div className="flex justify-end mt-2">
+                      <Button variant="ghost" size="sm" onClick={clearFilters}>
+                          <X className="mr-2 h-4 w-4" /> Clear Filters
+                      </Button>
+                  </div>
+              )}
+            </div>
+        </div>
+
+        <div className="container py-12">
+            {filteredProducts.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {filteredProducts.map(product => (
+                    <ProductCard key={product.id} product={product} />
+                ))}
+                </div>
+            ) : (
+                <div className="text-center py-16">
+                <p className="text-xl font-medium">No products found</p>
+                <p className="text-muted-foreground mt-2">Huku hakuna kitu! Try adjusting your search or filters.</p>
+                </div>
+            )}
+        </div>
+      </div>
+      
+       <section className="bg-card py-16">
+            <div className="container text-center">
+                <h2 className="text-3xl font-headline font-bold">Join The Movement</h2>
+                <p className="text-muted-foreground mt-2 max-w-xl mx-auto">Show off your style! Tag us on Instagram with <span className="font-bold text-primary">#LuxGFiti</span> to get featured.</p>
+                <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {[1, 2, 3, 4].map(i => (
+                        <div key={i} className="aspect-square relative rounded-lg overflow-hidden group">
+                             <Image
+                                src={`https://picsum.photos/seed/ig${i}/400/400`}
+                                alt={`Instagram user post ${i}`}
+                                data-ai-hint="student fashion streetwear"
+                                fill
+                                className="object-cover transition-transform duration-300 group-hover:scale-110"
+                            />
+                        </div>
                     ))}
                 </div>
             </div>
-          )}
-
-          <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-            Hapa ni quality na style tu! We have the latest trends in men's fashion at prices that make sense.
-          </p>
-
-          <div className="mt-8">
-            <Button size="lg" variant="outline" onClick={() => document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' })}>
-                View Our Products
-                <ArrowDown className="ml-2 h-5 w-5 animate-bounce" />
-            </Button>
-          </div>
-        </div>
       </section>
-      
-      <div id="collection" className="sticky top-[65px] z-40 bg-background/95 backdrop-blur-sm py-4 border-b border-t">
-        <div className="container space-y-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
-            <div className="relative sm:col-span-2 lg:col-span-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-              <Input
-                placeholder="Search products..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
-              />
+
+       <section className="container">
+            <div className="text-center mb-10">
+                <h2 className="text-3xl font-headline font-bold">What Our People Say</h2>
             </div>
-            
-            <Select value={filters.category} onValueChange={handleFilterChange('category')}>
-              <SelectTrigger><SelectValue placeholder="Category" /></SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Categories</SelectItem>
-                {categories.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
-              </SelectContent>
-            </Select>
-
-            <Select value={filters.color} onValueChange={handleFilterChange('color')}>
-              <SelectTrigger><SelectValue placeholder="Color" /></SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Colors</SelectItem>
-                {colors.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
-              </SelectContent>
-            </Select>
-
-            <Select value={filters.size} onValueChange={handleFilterChange('size')}>
-              <SelectTrigger><SelectValue placeholder="Size" /></SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Sizes</SelectItem>
-                {sizes.map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}
-              </SelectContent>
-            </Select>
-          </div>
-           {hasActiveFilters && (
-            <div className="flex justify-end">
-              <Button variant="ghost" size="sm" onClick={clearFilters}>
-                <X className="mr-2 h-4 w-4" /> Clear Filters
-              </Button>
+            <div className="grid md:grid-cols-2 gap-8">
+                <Card className="p-6">
+                    <blockquote className="italic text-muted-foreground">“Nguo ni safi, bei poa kabisa, nilipata jeans za fire hapa!”</blockquote>
+                    <p className="font-bold text-right mt-4">- Kamau, 3rd Year</p>
+                </Card>
+                 <Card className="p-6">
+                    <blockquote className="italic text-muted-foreground">“Best sneakers spot near Karatina Uni. Always getting the latest drops.”</blockquote>
+                    <p className="font-bold text-right mt-4">- Akinyi, Engineering</p>
+                </Card>
             </div>
-          )}
-        </div>
-      </div>
+      </section>
 
-      {filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {filteredProducts.map(product => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      ) : (
-        <div className="text-center py-16">
-          <p className="text-xl font-medium">No products found</p>
-          <p className="text-muted-foreground mt-2">Try adjusting your search or filters.</p>
-        </div>
-      )}
+       <section id="location" className="scroll-mt-20 container bg-card rounded-lg p-8 md:p-12">
+           <div className="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                  <h2 className="text-3xl font-headline font-bold">Come Say Hi!</h2>
+                  <p className="text-muted-foreground mt-2">Find us at Karatina University, Overfourty Business Centre. Tupo area!</p>
+                  <div className="mt-8 space-y-4">
+                      <div className='flex items-center gap-3'>
+                          <MapPin className="h-5 w-5 text-primary shrink-0" />
+                          <span>Karatina University, Overfourty Business Centre</span>
+                      </div>
+                      <div className='flex items-center gap-3'>
+                          <Phone className="h-5 w-5 text-primary shrink-0" />
+                          <a href="tel:+254741791259" className="hover:text-primary transition-colors">+254 741 791 259</a>
+                      </div>
+                  </div>
+                   <Button asChild className="mt-6 bg-green-600 hover:bg-green-700 text-white">
+                      <a href="https://wa.me/254741791259?text=Hello%2C%20I%E2%80%99m%20interested%20in%20your%20products." target="_blank" rel="noopener noreferrer">
+                        <WhatsAppIcon className="mr-2 h-5 w-5" />
+                        WhatsApp Us
+                      </a>
+                    </Button>
+                </div>
+                 <div className="aspect-video relative rounded-lg overflow-hidden border">
+                     <Image 
+                          src="https://picsum.photos/seed/locationmap/600/400"
+                          alt="Store location map"
+                          data-ai-hint="store location map" 
+                          fill
+                          className="object-cover"
+                      />
+                  </div>
+           </div>
+       </section>
+
+        <section className="container text-center py-12">
+            <h2 className="text-2xl md:text-3xl font-headline font-bold">Don’t Just Blend In. Stand Out.</h2>
+            <p className="text-muted-foreground mt-2 max-w-xl mx-auto">Chomoka na Nguo Fiti from Lux G Modern Collection!</p>
+            <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+                <Button size="lg" onClick={() => document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' })}>
+                    Shop The Collection
+                </Button>
+                <Button size="lg" variant="outline" onClick={() => document.getElementById('location')?.scrollIntoView({ behavior: 'smooth' })}>
+                    Visit The Store
+                </Button>
+            </div>
+        </section>
     </div>
   );
 }
