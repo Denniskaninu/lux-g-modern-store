@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -6,6 +7,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
+  signOut,
 } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { Button } from "@/components/ui/button";
@@ -52,10 +54,35 @@ export default function LoginPage() {
   const handleGoogleLogin = async () => {
     setGoogleLoading(true);
     const provider = new GoogleAuthProvider();
+    const adminEmail = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
+
+    if (!adminEmail) {
+        console.error("Admin email is not configured in environment variables.");
+        toast({
+            variant: "destructive",
+            title: "Configuration Error",
+            description: "The application is not configured for admin login. Please contact support.",
+        });
+        setGoogleLoading(false);
+        return;
+    }
+
     try {
-      await signInWithPopup(auth, provider);
-      toast({ title: "Login Successful", description: "Welcome!" });
-      router.push("/admin");
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      if (user.email === adminEmail) {
+        toast({ title: "Login Successful", description: "Welcome, Admin!" });
+        router.push("/admin");
+      } else {
+        // If the email doesn't match, sign the user out immediately.
+        await signOut(auth);
+        toast({
+          variant: "destructive",
+          title: "Not Authorized",
+          description: "This email address is not authorized for admin access.",
+        });
+      }
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -122,7 +149,7 @@ export default function LoginPage() {
               {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Login
             </Button>
-            <Button variant="outline" className="w-full" onClick={handleGoogleLogin} disabled={loading || googleLoading}>
+            <Button variant="outline" type="button" className="w-full" onClick={handleGoogleLogin} disabled={loading || googleLoading}>
               {googleLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <svg className="mr-2 h-4 w-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 126 23.4 172.9 61.9l-76.4 64.5c-24.3-23.6-57.5-38.4-96.5-38.4-87.8 0-159.4 71.6-159.4 159.4s71.6 159.4 159.4 159.4c100.3 0 133.1-62.2 137-95.4H248v-73.3h239.5c1.4 12.1 2.2 24.2 2.5 36.8z"></path></svg>}
               Login with Google
             </Button>
