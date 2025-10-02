@@ -2,9 +2,10 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
-import SiteHeader from '@/components/site-header';
-import SiteFooter from '@/components/site-footer';
 import { ThemeProvider } from '@/components/theme-provider';
+import { AuthProvider } from '@/components/auth-provider';
+import RootLayoutClient from './layout-client';
+
 
 export const metadata: Metadata = {
   title: 'LUX G MODERN COLLECTION',
@@ -30,11 +31,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="relative flex min-h-dvh flex-col">
-            <SiteHeader />
-            <main className="flex-1">{children}</main>
-            <SiteFooter />
-          </div>
+          <AuthProvider>
+            <RootLayoutClient>
+              {children}
+            </RootLayoutClient>
+          </AuthProvider>
         </ThemeProvider>
         <Toaster />
       </body>

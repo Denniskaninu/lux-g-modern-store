@@ -21,7 +21,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { UserNav } from "@/components/admin/user-nav"
-import { AuthProvider, useAuth } from "@/components/auth-provider"
+import { AuthProvider } from "@/components/auth-provider"
 import { useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase";
@@ -205,9 +205,28 @@ export default function AdminLayout({
           <div className="relative ml-auto flex-1 md:grow-0" />
           <UserNav />
         </header>
-        <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-            {children}
-        </main>
+        <div className="flex flex-col flex-1">
+          <main className="flex-1 grid items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
+              {children}
+          </main>
+          <footer className="mt-auto border-t bg-background px-4 py-6 sm:px-6">
+              <div className="container mx-auto flex justify-center items-center">
+                  <TooltipProvider>
+                      <Tooltip>
+                          <TooltipTrigger asChild>
+                              <Link href="/admin">
+                                  <Gem className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
+                                  <span className="sr-only">LUX G Admin Home</span>
+                              </Link>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                              <p>LUX G Admin</p>
+                          </TooltipContent>
+                      </Tooltip>
+                  </TooltipProvider>
+              </div>
+          </footer>
+        </div>
       </div>
     </div>
     </TooltipProvider>
