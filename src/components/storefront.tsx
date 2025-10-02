@@ -115,7 +115,7 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
 
           <div className="container relative z-10 flex flex-col items-center">
               <div className="bg-primary/10 text-primary font-bold py-1 px-4 rounded-full mb-4 animate-bounce">
-                  Student Discounts – Up to 20% Off!
+                  Comrade Discounts – Up to 20% Off!
               </div>
 
               <h1 className="font-headline text-4xl md:text-7xl font-bold tracking-tight text-foreground">
@@ -189,7 +189,7 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
                       <div className="flex items-start gap-4">
                           <CheckCircle className="h-6 w-6 text-green-500 mt-1 shrink-0" />
                           <div>
-                              <h4 className="font-bold">Affordable Student Prices</h4>
+                              <h4 className="font-bold">Affordable Comrade Prices</h4>
                               <p className="text-muted-foreground text-sm">Look sharp without breaking the bank. Tunajua budget!</p>
                           </div>
                       </div>
@@ -233,7 +233,7 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
               <h2 className="text-3xl font-headline font-bold flex items-center justify-center gap-2">
                   <Sparkles className="h-8 w-8 text-primary" /> Special Offers
               </h2>
-              <p className="text-muted-foreground mt-2">Don't miss out on these exclusive deals for students.</p>
+              <p className="text-muted-foreground mt-2">Don't miss out on these exclusive deals for comrades.</p>
           </div>
           <div className="grid md:grid-cols-2 gap-8">
               <Card className="p-6 flex flex-col sm:flex-row items-center gap-6 bg-primary/5">
@@ -247,7 +247,7 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
                <Card className="p-6 flex flex-col sm:flex-row items-center gap-6 bg-primary/5">
                   <div className="text-5xl">💸</div>
                   <div>
-                      <h3 className="font-bold text-xl">Student Bundles</h3>
+                      <h3 className="font-bold text-xl">Comrade Bundles</h3>
                       <p className="text-muted-foreground">Get a discount when you buy 1 Jean + 1 Tee together. Ask in-store!</p>
                        <Button className="mt-4" size="sm" variant="outline" onClick={() => document.getElementById('location')?.scrollIntoView({ behavior: 'smooth' })}>Find Us</Button>
                   </div>
