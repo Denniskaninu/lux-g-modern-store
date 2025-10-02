@@ -256,7 +256,7 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
       </section>
 
       <div id="collection" className="scroll-mt-20">
-        <div className="sticky top-[64px] z-30 bg-background/80 backdrop-blur-sm border-y">
+        <div className="bg-background/80 backdrop-blur-sm border-y">
             <div className="container py-4">
               <div className="flex flex-col gap-2 md:gap-4 md:flex-row items-center">
                   <div className="relative w-full md:flex-1">
