@@ -37,13 +37,12 @@ export default function ProductCard({ product }: ProductCardProps) {
           <span className="mx-1.5">•</span>
           <span>Size {product.size}</span>
         </div>
-        <p className="text-sm mt-2 text-primary font-bold">DM for Price</p>
       </CardContent>
       <CardFooter className="p-4 pt-0">
         <Button asChild className="w-full bg-green-600 hover:bg-green-700 text-white">
           <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
             <WhatsAppIcon className="mr-2 h-5 w-5" />
-            Order on WhatsApp
+            Order Now
           </a>
         </Button>
       </CardFooter>
