@@ -139,6 +139,23 @@ export async function sellProduct(
     });
 }
 
+export async function resetSalesData(): Promise<void> {
+    const salesRef = collection(db, 'sales');
+    const q = query(salesRef);
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+        return;
+    }
+
+    const batch = writeBatch(db);
+    querySnapshot.forEach(doc => {
+        batch.delete(doc.ref);
+    });
+
+    await batch.commit();
+}
+
 export function getUniqueFilterOptions(products: Product[]) {
     const categories = [...new Set(products.map(p => p.category))];
     const colors = [...new Set(products.map(p => p.color))];
