@@ -67,6 +67,25 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode
 }) {
+  const router = useRouter();
+  const { toast } = useToast();
+
+  const handleMobileLogout = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    try {
+      await signOut(auth);
+      toast({ title: "Logged Out", description: "You have been logged out successfully." });
+      router.push('/');
+    } catch (error: any) {
+      toast({
+          variant: "destructive",
+          title: "Logout Failed",
+          description: error.message,
+      });
+    }
+  };
+
+
   return (
     <AuthProvider>
     <TooltipProvider>
@@ -161,12 +180,8 @@ export default function AdminLayout({
                   Settings
                 </Link>
                  <Link
-                  href="/login"
-                  onClick={async (e) => {
-                    e.preventDefault();
-                    await signOut(auth);
-                    router.push('/login');
-                  }}
+                  href="/"
+                  onClick={handleMobileLogout}
                   className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                 >
                   <LogOut className="h-5 w-5" />
