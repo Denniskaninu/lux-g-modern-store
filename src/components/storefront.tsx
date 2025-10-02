@@ -11,6 +11,8 @@ import { Search, X, Shirt, Gem, Droplets, Package, CheckCircle, Sparkles, MapPin
 import { WhatsAppIcon } from './icons';
 import Image from 'next/image';
 import { Card, CardContent } from './ui/card';
+import { getDoc, doc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
 const marketingWords = ["Bei Poa", "Nguo Fiti", "Original", "Mali Safi"];
 
@@ -30,6 +32,7 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
   });
   const [currentWord, setCurrentWord] = useState(marketingWords[0]);
   const [isClient, setIsClient] = useState(false);
+  const [locationImageUrl, setLocationImageUrl] = useState<string | null>(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -40,6 +43,21 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
         return marketingWords[nextIndex];
       });
     }, 2500);
+
+    const fetchLocationImage = async () => {
+        try {
+            const settingsRef = doc(db, "settings", "store");
+            const docSnap = await getDoc(settingsRef);
+            if (docSnap.exists() && docSnap.data().locationImageUrl) {
+                setLocationImageUrl(docSnap.data().locationImageUrl);
+            }
+        } catch (error) {
+            console.error("Error fetching location image:", error);
+            // Fallback to placeholder if fetch fails
+            setLocationImageUrl("https://picsum.photos/seed/locationmap/600/400");
+        }
+    }
+    fetchLocationImage();
 
     return () => clearInterval(interval);
   }, []);
@@ -326,8 +344,8 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
        <section id="location" className="scroll-mt-20 container bg-card rounded-lg p-8 md:p-12">
            <div className="grid md:grid-cols-2 gap-12 items-center">
                 <div>
-                  <h2 className="text-3xl font-headline font-bold">Come Say Hi!</h2>
-                  <p className="text-muted-foreground mt-2">Find us at Karatina University, Overfourty Business Centre. Tupo area!</p>
+                  <h2 className="text-3xl font-headline font-bold">Visit Us Mon – Sun</h2>
+                  <p className="text-muted-foreground mt-2">Tupo Karatina University, Overfourty Business Centre. <span className="font-semibold text-primary">Kuona na kuguza ni bure!</span></p>
                   <div className="mt-8 space-y-4">
                       <div className='flex items-center gap-3'>
                           <MapPin className="h-5 w-5 text-primary shrink-0" />
@@ -347,7 +365,7 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
                 </div>
                  <div className="aspect-video relative rounded-lg overflow-hidden border">
                      <Image 
-                          src="https://picsum.photos/seed/locationmap/600/400"
+                          src={locationImageUrl || "https://picsum.photos/seed/locationmap/600/400"}
                           alt="Store location map"
                           data-ai-hint="store location map" 
                           fill
