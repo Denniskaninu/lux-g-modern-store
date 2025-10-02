@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -34,7 +35,7 @@ export default function LowStockAlerts() {
         const [productsData, salesData] = await Promise.all([getProducts(), getSales()]);
         setProducts(productsData);
 
-        if (productsData.length > 0 && salesData.length > 0) {
+        if (productsData.length > 0) {
             // Convert Timestamps to strings before sending to the server action
             const plainProducts = productsData.map(p => ({
               ...p,
