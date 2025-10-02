@@ -40,7 +40,6 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
       {
-<<<<<<< HEAD
         protocol: 'http',
         hostname: 'localhost',
         port: '**',
@@ -49,10 +48,6 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: '6000-firebase-studio-1759296005596.cluster-cbeiita7rbe7iuwhvjs5zww2i4.cloudworkstations.dev',
-=======
-        protocol: 'https',
-        hostname: 'lh3.googleusercontent.com',
->>>>>>> 720835e4d38b5459561e3c80df50cd395dd9128a
         port: '',
         pathname: '/**',
       }
