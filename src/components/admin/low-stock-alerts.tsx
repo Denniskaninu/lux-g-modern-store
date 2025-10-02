@@ -6,9 +6,10 @@ import { generateLowStockAlerts, LowStockAlertsOutput } from "@/ai/flows/low-sto
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Lightbulb, TriangleAlert } from "lucide-react";
-import { Product } from "@/lib/types";
+import { Product, Sale } from "@/lib/types";
 import { Skeleton } from "../ui/skeleton";
 import { useAuth } from "../auth-provider";
+import { Timestamp } from "firebase/firestore";
 
 export default function LowStockAlerts() {
   const { user } = useAuth();
@@ -34,7 +35,19 @@ export default function LowStockAlerts() {
         setProducts(productsData);
 
         if (productsData.length > 0 && salesData.length > 0) {
-            const result = await generateLowStockAlerts({ products: productsData, sales: salesData });
+            // Convert Timestamps to strings before sending to the server action
+            const plainProducts = productsData.map(p => ({
+              ...p,
+              createdAt: p.createdAt instanceof Timestamp ? p.createdAt.toDate().toISOString() : String(p.createdAt),
+              updatedAt: p.updatedAt instanceof Timestamp ? p.updatedAt.toDate().toISOString() : String(p.updatedAt),
+            }));
+
+            const plainSales = salesData.map(s => ({
+              ...s,
+              soldAt: s.soldAt instanceof Timestamp ? s.soldAt.toDate().toISOString() : String(s.soldAt),
+            }));
+
+            const result = await generateLowStockAlerts({ products: plainProducts, sales: plainSales });
             setAlerts(result.alerts);
         }
       } catch (error) {
