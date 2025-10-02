@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -83,7 +84,7 @@ export default function SettingsPage() {
     try {
       let imageUrl = preview;
 
-      if (values.locationImage) {
+      if (values.locationImage && values.locationImage instanceof File) {
         const uploadResult = await uploadImage(values.locationImage, 'store-location');
         imageUrl = uploadResult.secure_url;
       }

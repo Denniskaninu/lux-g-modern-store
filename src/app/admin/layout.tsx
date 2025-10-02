@@ -1,10 +1,10 @@
+
 import Link from "next/link"
 import {
   Home,
   Package,
   PanelLeft,
   Settings,
-  Store,
 } from "lucide-react"
 import { Gem } from "lucide-react"
 
@@ -16,7 +16,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import Logo from "@/components/logo"
 import { UserNav } from "@/components/admin/user-nav"
 import { AuthProvider } from "@/components/auth-provider"
 
