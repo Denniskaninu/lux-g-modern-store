@@ -96,8 +96,8 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
         </div>
       </section>
       
-      <div id="collection" className="sticky top-[65px] z-40 bg-background/95 backdrop-blur-sm py-4 -mx-4 px-4 border-b border-t">
-        <div className="container mx-auto px-4">
+      <div id="collection" className="sticky top-[65px] z-40 bg-background/95 backdrop-blur-sm py-4 border-b border-t">
+        <div className="container space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
             <div className="relative sm:col-span-2 lg:col-span-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
@@ -134,7 +134,7 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
             </Select>
           </div>
            {hasActiveFilters && (
-            <div className="mt-4 flex justify-end">
+            <div className="flex justify-end">
               <Button variant="ghost" size="sm" onClick={clearFilters}>
                 <X className="mr-2 h-4 w-4" /> Clear Filters
               </Button>
