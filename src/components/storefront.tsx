@@ -117,7 +117,7 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
               </div>
 
               <h1 className="font-headline text-4xl md:text-7xl font-bold tracking-tight text-foreground">
-                  Chomoka na Nguo Fiti!
+                  Chomoka na Nguo Fiti Kutoka lux G modern Collections!
               </h1>
               
               <div className="mt-4 text-lg md:text-xl text-muted-foreground h-8 flex items-center justify-center gap-2 font-semibold">
