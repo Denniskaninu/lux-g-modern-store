@@ -126,6 +126,10 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
                 </span>
               </div>
 
+               <p className="mt-6 max-w-2xl mx-auto text-muted-foreground">
+                  Dealer in: Trendy men fashion ie designer jeans, jackets, shirts, tshirts shoes, sandals,inner wears,watches,caps,beanies,belts etc
+              </p>
+
               <div className="mt-8 flex flex-col sm:flex-row gap-4">
                   <Button size="lg" onClick={() => document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' })}>
                       Shop Now
