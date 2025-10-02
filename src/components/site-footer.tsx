@@ -98,27 +98,22 @@ export default function SiteFooter() {
 
             <div>
               <h4 className="font-headline font-semibold mb-4 text-primary">Our Location</h4>
-              {isClient && (
-                <>
-                  {loading ? (
-                      <Skeleton className="w-full aspect-video rounded-lg" />
-                  ) : locationImageUrl ? (
-                      <div className="overflow-hidden rounded-lg border aspect-video relative">
-                          <Image 
-                              src={locationImageUrl} 
-                              alt="Store location map" 
-                              fill
-                              className="object-cover"
-                          />
-                      </div>
-                  ) : (
-                      <div className="aspect-video rounded-lg bg-muted flex items-center justify-center text-center p-4 text-sm text-muted-foreground">
-                          Location image not available.
-                      </div>
-                  )}
-                </>
+              {!isClient || loading ? (
+                  <Skeleton className="w-full aspect-video rounded-lg" />
+              ) : locationImageUrl ? (
+                  <div className="overflow-hidden rounded-lg border aspect-video relative">
+                      <Image 
+                          src={locationImageUrl} 
+                          alt="Store location map" 
+                          fill
+                          className="object-cover"
+                      />
+                  </div>
+              ) : (
+                  <div className="aspect-video rounded-lg bg-muted flex items-center justify-center text-center p-4 text-sm text-muted-foreground">
+                      Location image not available.
+                  </div>
               )}
-              {!isClient && <Skeleton className="w-full aspect-video rounded-lg" />}
             </div>
           </div>
         </div>
