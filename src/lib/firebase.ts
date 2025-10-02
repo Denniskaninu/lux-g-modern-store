@@ -3,7 +3,8 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { firebaseConfig } from "../../firebase.config.js";
+const firebaseConfig = require('../../firebase.config.js');
+
 
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
