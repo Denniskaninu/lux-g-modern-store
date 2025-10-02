@@ -21,10 +21,12 @@ export default function SiteFooter() {
   const currentYear = new Date().getFullYear();
   const [locationImageUrl, setLocationImageUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const [isMounted, setIsMounted] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true);
+    // This effect runs only on the client, after the component has mounted.
+    setIsClient(true);
+
     const fetchSettings = async () => {
       setLoading(true);
       try {
@@ -99,7 +101,9 @@ export default function SiteFooter() {
 
             <div>
               <h4 className="font-headline font-semibold mb-4 text-primary">Our Location</h4>
-              {!isMounted || loading ? (
+              {!isClient ? (
+                  <Skeleton className="w-full aspect-video rounded-lg" />
+              ) : loading ? (
                   <Skeleton className="w-full aspect-video rounded-lg" />
               ) : locationImageUrl ? (
                   <div className="overflow-hidden rounded-lg border aspect-video relative">
