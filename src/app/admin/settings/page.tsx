@@ -30,6 +30,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2, Camera } from "lucide-react";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useRouter } from "next/navigation";
 
 const settingsSchema = z.object({
   locationImage: z.any().optional(),
@@ -38,6 +39,7 @@ const settingsSchema = z.object({
 export default function SettingsPage() {
   const { user } = useAuth();
   const { toast } = useToast();
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
   const [preview, setPreview] = useState<string | null>(null);
@@ -96,6 +98,7 @@ export default function SettingsPage() {
         title: "Success!",
         description: "Store settings have been updated.",
       });
+      router.push("/admin");
     } catch (error: any) {
       toast({
         variant: "destructive",

@@ -1,10 +1,13 @@
 
+"use client";
+
 import Link from "next/link"
 import {
   Home,
   Package,
   PanelLeft,
   Settings,
+  LogOut,
 } from "lucide-react"
 import { Gem } from "lucide-react"
 
@@ -17,7 +20,47 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { UserNav } from "@/components/admin/user-nav"
-import { AuthProvider } from "@/components/auth-provider"
+import { AuthProvider, useAuth } from "@/components/auth-provider"
+import { useRouter } from "next/navigation";
+import { signOut } from "firebase/auth";
+import { auth } from "@/lib/firebase";
+import { useToast } from "@/hooks/use-toast";
+
+
+function LogoutButton() {
+    const router = useRouter();
+    const { toast } = useToast();
+
+    const handleLogout = async () => {
+        try {
+        await signOut(auth);
+        toast({ title: "Logged Out", description: "You have been logged out successfully." });
+        router.push("/");
+        } catch (error: any) {
+        toast({
+            variant: "destructive",
+            title: "Logout Failed",
+            description: error.message,
+        });
+        }
+    };
+    return (
+         <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="ghost"
+                onClick={handleLogout}
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+              >
+                <LogOut className="h-5 w-5" />
+                <span className="sr-only">Logout</span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent side="right">Logout</TooltipContent>
+          </Tooltip>
+    )
+
+}
 
 export default function AdminLayout({
   children,
@@ -61,9 +104,7 @@ export default function AdminLayout({
             </TooltipTrigger>
             <TooltipContent side="right">Products</TooltipContent>
           </Tooltip>
-        </nav>
-        <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
-          <Tooltip>
+           <Tooltip>
             <TooltipTrigger asChild>
               <Link
                 href="/admin/settings"
@@ -75,6 +116,9 @@ export default function AdminLayout({
             </TooltipTrigger>
             <TooltipContent side="right">Settings</TooltipContent>
           </Tooltip>
+        </nav>
+        <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
+         <LogoutButton />
         </nav>
       </aside>
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
@@ -115,6 +159,18 @@ export default function AdminLayout({
                 >
                   <Settings className="h-5 w-5" />
                   Settings
+                </Link>
+                 <Link
+                  href="/login"
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    await signOut(auth);
+                    router.push('/login');
+                  }}
+                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                >
+                  <LogOut className="h-5 w-5" />
+                  Logout
                 </Link>
               </nav>
             </SheetContent>
