@@ -142,55 +142,6 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
           </div>
       </section>
       
-      <section className="bg-card py-16">
-          <div className="container grid md:grid-cols-2 gap-12 items-center">
-              <div>
-                  <h2 className="text-3xl font-headline font-bold">Our Promise to You</h2>
-                  <p className="text-muted-foreground mt-2">Get the best style, quality, and price, right next to campus.</p>
-                  <div className="mt-8 space-y-4">
-                      <div className="flex items-start gap-4">
-                          <CheckCircle className="h-6 w-6 text-green-500 mt-1 shrink-0" />
-                          <div>
-                              <h4 className="font-bold">Affordable Comrade Prices</h4>
-                              <p className="text-muted-foreground text-sm">Look sharp without breaking the bank. Tunajua budget!</p>
-                          </div>
-                      </div>
-                      <div className="flex items-start gap-4">
-                          <CheckCircle className="h-6 w-6 text-green-500 mt-1 shrink-0" />
-                          <div>
-                              <h4 className="font-bold">Trendy, Latest Streetwear</h4>
-                              <p className="text-muted-foreground text-sm">We stay up-to-date so you can stand out.</p>
-                          </div>
-                      </div>
-                       <div className="flex items-start gap-4">
-                          <CheckCircle className="h-6 w-6 text-green-500 mt-1 shrink-0" />
-                          <div>
-                              <h4 className="font-bold">Original Quality (Mali Safi)</h4>
-                              <p className="text-muted-foreground text-sm">No fakes. Just durable, quality clothing and shoes.</p>
-                          </div>
-                      </div>
-                      <div className="flex items-start gap-4">
-                          <CheckCircle className="h-6 w-6 text-green-500 mt-1 shrink-0" />
-                          <div>
-                              <h4 className="font-bold">Shop with Confidence</h4>
-                              <p className="text-muted-foreground text-sm">Easy returns and great service, always.</p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div className="aspect-square relative rounded-lg overflow-hidden">
-                   <Image
-                      src={locationImageUrl || "https://picsum.photos/seed/storefront/600/600"}
-                      alt="Interior of a modern clothing store"
-                      data-ai-hint="clothing store interior"
-                      fill
-                      className="object-cover transition-transform duration-300 hover:scale-105"
-                  />
-              </div>
-          </div>
-      </section>
-
-
       <div id="collection" className="scroll-mt-20">
         <div className="border-y bg-background/80 backdrop-blur-sm">
             <div className="container py-4">
@@ -329,7 +280,3 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
     </div>
   );
 }
-
-    
-
-    
