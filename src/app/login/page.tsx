@@ -54,10 +54,10 @@ export default function LoginPage() {
   const handleGoogleLogin = async () => {
     setGoogleLoading(true);
     const provider = new GoogleAuthProvider();
-    const adminEmail = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
+    const adminEmails = (process.env.NEXT_PUBLIC_ADMIN_EMAILS || "").split(',');
 
-    if (!adminEmail) {
-        console.error("Admin email is not configured in environment variables.");
+    if (!adminEmails.length || adminEmails[0] === '') {
+        console.error("Admin emails are not configured in environment variables.");
         toast({
             variant: "destructive",
             title: "Configuration Error",
@@ -71,7 +71,7 @@ export default function LoginPage() {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      if (user.email === adminEmail) {
+      if (user.email && adminEmails.includes(user.email)) {
         toast({ title: "Login Successful", description: "Welcome, Admin!" });
         router.push("/admin");
       } else {
