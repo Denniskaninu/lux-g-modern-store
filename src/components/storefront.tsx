@@ -95,55 +95,51 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
         </div>
       </section>
       
-      <div id="collection" className="sticky top-16 z-40 bg-background/80 backdrop-blur-sm py-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 items-center">
-          <div className="relative lg:col-span-2">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-            <Input
-              placeholder="Search products..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
-            />
+      <div id="collection" className="sticky top-[65px] z-40 bg-background/95 backdrop-blur-sm py-4 -mx-4 px-4 border-b border-t">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
+            <div className="relative sm:col-span-2 lg:col-span-1">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+              <Input
+                placeholder="Search products..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+            
+            <Select value={filters.category} onValueChange={handleFilterChange('category')}>
+              <SelectTrigger><SelectValue placeholder="Category" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Categories</SelectItem>
+                {categories.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+              </SelectContent>
+            </Select>
+
+            <Select value={filters.color} onValueChange={handleFilterChange('color')}>
+              <SelectTrigger><SelectValue placeholder="Color" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Colors</SelectItem>
+                {colors.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+              </SelectContent>
+            </Select>
+
+            <Select value={filters.size} onValueChange={handleFilterChange('size')}>
+              <SelectTrigger><SelectValue placeholder="Size" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Sizes</SelectItem>
+                {sizes.map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}
+              </SelectContent>
+            </Select>
           </div>
-          
-          <Select value={filters.category} onValueChange={handleFilterChange('category')}>
-            <SelectTrigger><SelectValue placeholder="Category" /></SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Categories</SelectItem>
-              {categories.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
-            </SelectContent>
-          </Select>
-
-          <Select value={filters.color} onValueChange={handleFilterChange('color')}>
-            <SelectTrigger><SelectValue placeholder="Color" /></SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Colors</SelectItem>
-              {colors.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
-            </SelectContent>
-          </Select>
-
-          <Select value={filters.size} onValueChange={handleFilterChange('size')}>
-            <SelectTrigger><SelectValue placeholder="Size" /></SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Sizes</SelectItem>
-              {sizes.map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}
-            </SelectContent>
-          </Select>
-
-          {hasActiveFilters && (
-            <Button variant="ghost" onClick={clearFilters} className="lg:hidden">
-              <X className="mr-2 h-4 w-4" /> Clear Filters
-            </Button>
+           {hasActiveFilters && (
+            <div className="mt-4 flex justify-end">
+              <Button variant="ghost" size="sm" onClick={clearFilters}>
+                <X className="mr-2 h-4 w-4" /> Clear Filters
+              </Button>
+            </div>
           )}
         </div>
-        {hasActiveFilters && (
-          <div className="mt-2 text-right hidden lg:block">
-             <Button variant="ghost" size="sm" onClick={clearFilters}>
-              <X className="mr-2 h-4 w-4" /> Clear Filters
-            </Button>
-          </div>
-        )}
       </div>
 
       {filteredProducts.length > 0 ? (
