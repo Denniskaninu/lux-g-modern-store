@@ -7,10 +7,9 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import ProductCard from './product-card';
-import { Search, X, Shirt, Gem, Droplets, Package, CheckCircle, Sparkles, MapPin, Phone, Watch, Redo } from 'lucide-react';
+import { Search, X, CheckCircle, Sparkles, MapPin, Phone } from 'lucide-react';
 import { WhatsAppIcon } from './icons';
 import Image from 'next/image';
-import { Card, CardContent } from './ui/card';
 import { getDoc, doc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
@@ -143,50 +142,11 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
           </div>
       </section>
       
-      <section className="container">
-        <div className="text-center">
-            <h2 className="text-3xl font-headline font-bold">From Campus Vibe to Weekend Style</h2>
-            <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">We've got everything you need to look sharp. Find your perfect fit from our collection.</p>
-        </div>
-        <div className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 text-center">
-            <div className="flex flex-col items-center gap-2">
-                <div className="bg-primary/10 p-4 rounded-full">
-                    <Gem className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="font-semibold">Classy Jeans</h3>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-                <div className="bg-primary/10 p-4 rounded-full">
-                    <Shirt className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="font-semibold">T-Shirts &amp; Silk Shirts</h3>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-                <div className="bg-primary/10 p-4 rounded-full">
-                    <Redo className="h-8 w-8 text-primary -scale-x-100" />
-                </div>
-                <h3 className="font-semibold">Stylish Toppers</h3>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-                <div className="bg-primary/10 p-4 rounded-full">
-                    <Droplets className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="font-semibold">Fresh Sneakers</h3>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-                <div className="bg-primary/10 p-4 rounded-full">
-                    <Watch className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="font-semibold">Accessories &amp; Watches</h3>
-            </div>
-        </div>
-      </section>
-
       <section className="bg-card py-16">
           <div className="container grid md:grid-cols-2 gap-12 items-center">
               <div>
-                  <h2 className="text-3xl font-headline font-bold">Why Shop with Us?</h2>
-                  <p className="text-muted-foreground mt-2">Get the best style, quality, and price, right next to you.</p>
+                  <h2 className="text-3xl font-headline font-bold">Our Promise to You</h2>
+                  <p className="text-muted-foreground mt-2">Get the best style, quality, and price, right next to campus.</p>
                   <div className="mt-8 space-y-4">
                       <div className="flex items-start gap-4">
                           <CheckCircle className="h-6 w-6 text-green-500 mt-1 shrink-0" />
@@ -212,8 +172,8 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
                       <div className="flex items-start gap-4">
                           <CheckCircle className="h-6 w-6 text-green-500 mt-1 shrink-0" />
                           <div>
-                              <h4 className="font-bold">Located Near Campus</h4>
-                              <p className="text-muted-foreground text-sm">Pass by our shop at Karatina University, Overfourty Business Centre.</p>
+                              <h4 className="font-bold">Shop with Confidence</h4>
+                              <p className="text-muted-foreground text-sm">Easy returns and great service, always.</p>
                           </div>
                       </div>
                   </div>
@@ -230,35 +190,9 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
           </div>
       </section>
 
-       <section className="container">
-          <div className="text-center mb-10">
-              <h2 className="text-3xl font-headline font-bold flex items-center justify-center gap-2">
-                  <Sparkles className="h-8 w-8 text-primary" /> Special Offers
-              </h2>
-              <p className="text-muted-foreground mt-2">Don't miss out on these exclusive deals for comrades.</p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-8">
-              <Card className="p-6 flex flex-col sm:flex-row items-center gap-6 bg-primary/5">
-                  <div className="text-5xl">🔥</div>
-                  <div>
-                      <h3 className="font-bold text-xl">This Week’s Hot Pick</h3>
-                      <p className="text-muted-foreground">Limited edition graphic tees. Grab one before they're gone!</p>
-                      <Button className="mt-4" size="sm" onClick={() => handleFilterChange('category')('T-Shirts')}>View Tees</Button>
-                  </div>
-              </Card>
-               <Card className="p-6 flex flex-col sm:flex-row items-center gap-6 bg-primary/5">
-                  <div className="text-5xl">💸</div>
-                  <div>
-                      <h3 className="font-bold text-xl">Comrade Bundles</h3>
-                      <p className="text-muted-foreground">Get a discount when you buy 1 Jean + 1 Tee together. Ask in-store!</p>
-                       <Button className="mt-4" size="sm" variant="outline" onClick={() => document.getElementById('location')?.scrollIntoView({ behavior: 'smooth' })}>Find Us</Button>
-                  </div>
-              </Card>
-          </div>
-      </section>
 
       <div id="collection" className="scroll-mt-20">
-        <div className="bg-background/80 backdrop-blur-sm border-y">
+        <div className="border-y bg-background/80 backdrop-blur-sm">
             <div className="container py-4">
               <div className="flex flex-col gap-2 md:gap-4 md:flex-row items-center">
                   <div className="relative w-full md:flex-1">
@@ -305,6 +239,12 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
         </div>
 
         <div className="container py-12">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl font-headline font-bold flex items-center justify-center gap-2">
+                  <Sparkles className="h-8 w-8 text-primary" /> Our Collection
+              </h2>
+              <p className="text-muted-foreground mt-2">Find your perfect fit. New arrivals weekly.</p>
+          </div>
             {filteredProducts.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {filteredProducts.map(product => (
@@ -338,42 +278,6 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
                     ))}
                 </div>
             </div>
-      </section>
-
-      <section className="container">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl font-headline font-bold">Our Promise To You</h2>
-        </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="flex items-start gap-4">
-                <CheckCircle className="h-6 w-6 text-green-500 mt-1 shrink-0" />
-                <div>
-                    <h4 className="font-bold">Always Authentic</h4>
-                    <p className="text-muted-foreground text-sm">Original brands, no compromises. Mali safi.</p>
-                </div>
-            </div>
-            <div className="flex items-start gap-4">
-                <CheckCircle className="h-6 w-6 text-green-500 mt-1 shrink-0" />
-                <div>
-                    <h4 className="font-bold">Best Prices in Town</h4>
-                    <p className="text-muted-foreground text-sm">Comrade-friendly prices, guaranteed.</p>
-                </div>
-            </div>
-            <div className="flex items-start gap-4">
-                <CheckCircle className="h-6 w-6 text-green-500 mt-1 shrink-0" />
-                <div>
-                    <h4 className="font-bold">The Freshest Styles</h4>
-                    <p className="text-muted-foreground text-sm">We bring you the latest trends first.</p>
-                </div>
-            </div>
-            <div className="flex items-start gap-4">
-                <CheckCircle className="h-6 w-6 text-green-500 mt-1 shrink-0" />
-                <div>
-                    <h4 className="font-bold">Shop with Confidence</h4>
-                    <p className="text-muted-foreground text-sm">Easy returns and great service, always.</p>
-                </div>
-            </div>
-        </div>
       </section>
 
        <section id="location" className="scroll-mt-20 container bg-card rounded-lg p-8 md:p-12">
@@ -425,5 +329,7 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
     </div>
   );
 }
+
+    
 
     
