@@ -1,12 +1,14 @@
 "use client";
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import type { Product } from '@/lib/types';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import ProductCard from './product-card';
 import { Search, X, ArrowDown } from 'lucide-react';
+
+const marketingWords = ["Style", "Quality", "Trends", "Exclusivity", "Luxury"];
 
 interface StorefrontProps {
   products: Product[];
@@ -22,6 +24,21 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
     color: '',
     size: '',
   });
+  const [currentWord, setCurrentWord] = useState(marketingWords[0]);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+    const interval = setInterval(() => {
+      setCurrentWord(prevWord => {
+        const currentIndex = marketingWords.indexOf(prevWord);
+        const nextIndex = (currentIndex + 1) % marketingWords.length;
+        return marketingWords[nextIndex];
+      });
+    }, 2500);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleFilterChange = (filterType: 'category' | 'color' | 'size') => (value: string) => {
     setFilters(prev => ({ ...prev, [filterType]: value === 'all' ? '' : value }));
@@ -52,9 +69,23 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
         <div className="absolute inset-0 bg-background/50 z-0" />
         <div className="container relative z-20">
           <h1 className="font-headline text-4xl md:text-6xl font-bold tracking-tight text-primary">LUX G MODERN COLLECTION</h1>
-          <p className="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Discover unmatched quality and style. We deal in trendy men's fashion, from designer jeans and jackets to exclusive footwear and accessories.
+          {isClient && (
+            <div className="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto h-16 md:h-8 flex flex-col md:flex-row items-center justify-center gap-2">
+                <p>Discover Unmatched</p>
+                <div className="relative h-8 w-32">
+                    {marketingWords.map(word => (
+                        <span key={word} className={`absolute inset-0 transition-all duration-500 ease-in-out ${word === currentWord ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
+                            {word}.
+                        </span>
+                    ))}
+                </div>
+            </div>
+          )}
+
+          <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
+            We deal in trendy men's fashion, from designer jeans and jackets to exclusive footwear and accessories.
           </p>
+
           <div className="mt-8">
             <Button size="lg" variant="outline" onClick={() => document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' })}>
                 Explore Collection

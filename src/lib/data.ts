@@ -155,7 +155,7 @@ function fileToDataURI(file: File): Promise<string> {
   });
 }
 
-export async function uploadImage(file: File): Promise<{secure_url: string, public_id: string}> {
+export async function uploadImage(file: File, folder?: string): Promise<{secure_url: string, public_id: string}> {
   const fileDataUrl = await fileToDataURI(file);
 
   const response = await fetch('/api/upload', {
@@ -163,7 +163,7 @@ export async function uploadImage(file: File): Promise<{secure_url: string, publ
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ file: fileDataUrl }),
+    body: JSON.stringify({ file: fileDataUrl, folder }),
   });
 
   if (!response.ok) {

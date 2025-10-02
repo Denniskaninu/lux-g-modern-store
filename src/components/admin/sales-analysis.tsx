@@ -11,11 +11,17 @@ import { Download } from "lucide-react";
 import { Skeleton } from "../ui/skeleton";
 import { useAuth } from "../auth-provider";
 import type { SaleWithProduct } from "@/lib/types";
-import { startOfDay, endOfDay, startOfWeek, endOfWeek, startOfMonth, endOfMonth, startOfYear, endOfYear, toDate } from 'date-fns';
+import { startOfDay, endOfDay, startOfWeek, endOfWeek, startOfMonth, endOfMonth, startOfYear, endOfYear, toDate, format } from 'date-fns';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
 type TimePeriod = 'today' | 'week' | 'month' | 'year';
+
+// Extend jsPDF with autoTable
+interface jsPDFWithAutoTable extends jsPDF {
+  autoTable: (options: any) => jsPDF;
+}
+
 
 export default function SalesAnalysis() {
   const { user } = useAuth();
@@ -76,8 +82,6 @@ export default function SalesAnalysis() {
     }
     
     return sales.filter(sale => {
-      // The 'soldAt' could be a Firestore Timestamp object or a JS Date.
-      // toDate() handles both cases gracefully.
       if (!sale.soldAt) return false;
       const saleDate = toDate(sale.soldAt.seconds * 1000 + sale.soldAt.nanoseconds / 1000000);
       return saleDate >= startDate && saleDate <= endDate;
@@ -89,7 +93,7 @@ export default function SalesAnalysis() {
   const totalProfit = filteredSales.reduce((sum, sale) => sum + sale.profit, 0);
 
   const downloadPdf = () => {
-    const doc = new jsPDF();
+    const doc = new jsPDF() as jsPDFWithAutoTable;
     const tableColumn = ["Product Name", "Qty", "Revenue", "Profit"];
     const tableRows: (string | number)[][] = [];
 
@@ -97,28 +101,70 @@ export default function SalesAnalysis() {
         const saleData = [
             `${sale.productName} (${sale.productColor}, ${sale.productSize})`,
             sale.quantity,
-            formatCurrency(sale.sp * sale.quantity, 'USD'),
-            formatCurrency(sale.profit, 'USD'),
+            formatCurrency(sale.sp * sale.quantity, 'KES'),
+            formatCurrency(sale.profit, 'KES'),
         ];
         tableRows.push(saleData);
     });
 
+    const capFirst = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
+
+    // Header
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(22);
+    doc.setTextColor(38, 92, 50); // Primary color
+    doc.text("LUX G MODERN COLLECTION", doc.internal.pageSize.getWidth() / 2, 20, { align: 'center' });
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(12);
+    doc.setTextColor(100);
+    doc.text("Sales Analysis Report", doc.internal.pageSize.getWidth() / 2, 28, { align: 'center' });
+    
+    doc.setFontSize(10);
+    doc.text(`Period: ${capFirst(timePeriod)}`, 14, 40);
+    doc.text(`Date Generated: ${format(new Date(), 'yyyy-MM-dd HH:mm')}`, doc.internal.pageSize.getWidth() - 14, 40, { align: 'right' });
+
+
     doc.autoTable({
         head: [tableColumn],
         body: tableRows,
-        startY: 20,
-        didDrawPage: function (data) {
-          doc.setFontSize(20);
-          doc.text("Sales Analysis Report", data.settings.margin.left, 15);
+        startY: 50,
+        theme: 'striped',
+        headStyles: { fillColor: [38, 92, 50] },
+        didDrawPage: (data) => {
+            // Footer on each page
+            const pageCount = doc.internal.pages.length;
+            doc.setFontSize(8);
+            doc.setTextColor(150);
+            doc.text(`Page ${data.pageNumber} of ${pageCount-1}`, doc.internal.pageSize.getWidth() / 2, doc.internal.pageSize.getHeight() - 10, { align: 'center' });
         }
     });
     
-    const finalY = (doc as any).lastAutoTable.finalY;
+    const finalY = (doc as any).lastAutoTable.finalY || 60;
+    
+    // Summary
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text("Summary", 14, finalY + 15);
+    
     doc.setFontSize(12);
-    doc.text(`Total Revenue: ${formatCurrency(totalRevenue, 'USD')}`, 14, finalY + 15);
-    doc.text(`Total Profit: ${formatCurrency(totalProfit, 'USD')}`, 14, finalY + 22);
+    doc.setFont('helvetica', 'normal');
+    const summaryX = 20;
+    const summaryY = finalY + 25;
+    
+    doc.autoTable({
+      body: [
+        ['Total Revenue', formatCurrency(totalRevenue, 'KES')],
+        ['Total Profit', formatCurrency(totalProfit, 'KES')],
+        ['Total Sales Items', filteredSales.reduce((acc, s) => acc + s.quantity, 0)],
+      ],
+      startY: summaryY,
+      theme: 'grid',
+      columnStyles: { 0: { fontStyle: 'bold' } },
+    });
 
-    doc.save(`sales_report_${timePeriod}_${new Date().toISOString().split('T')[0]}.pdf`);
+
+    doc.save(`LUX-G_Sales_Report_${timePeriod}_${new Date().toISOString().split('T')[0]}.pdf`);
   };
 
 

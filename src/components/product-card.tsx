@@ -39,7 +39,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <Button asChild className="w-full bg-green-600 hover:bg-green-700 text-white">
           <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
             <WhatsAppIcon className="mr-2 h-5 w-5" />
-            Order via WhatsApp
+            Order Now
           </a>
         </Button>
       </CardFooter>
