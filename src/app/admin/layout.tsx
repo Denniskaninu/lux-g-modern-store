@@ -2,6 +2,7 @@
 "use client";
 
 import Link from "next/link"
+import { useState } from "react";
 import {
   Home,
   Package,
@@ -67,6 +68,7 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode
 }) {
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
 
@@ -74,6 +76,7 @@ export default function AdminLayout({
     e.preventDefault();
     try {
       await signOut(auth);
+      setIsSheetOpen(false);
       toast({ title: "Logged Out", description: "You have been logged out successfully." });
       router.push('/');
     } catch (error: any) {
@@ -83,6 +86,10 @@ export default function AdminLayout({
           description: error.message,
       });
     }
+  };
+
+  const handleLinkClick = () => {
+    setIsSheetOpen(false);
   };
 
 
@@ -142,7 +149,7 @@ export default function AdminLayout({
       </aside>
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-          <Sheet>
+          <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
             <SheetTrigger asChild>
               <Button size="icon" variant="outline" className="sm:hidden">
                 <PanelLeft className="h-5 w-5" />
@@ -153,6 +160,7 @@ export default function AdminLayout({
               <nav className="grid gap-6 text-lg font-medium">
                 <Link
                   href="/admin"
+                  onClick={handleLinkClick}
                   className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
                 >
                   <Gem className="h-5 w-5 transition-all group-hover:scale-110" />
@@ -160,6 +168,7 @@ export default function AdminLayout({
                 </Link>
                 <Link
                   href="/admin"
+                  onClick={handleLinkClick}
                   className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                 >
                   <Home className="h-5 w-5" />
@@ -167,6 +176,7 @@ export default function AdminLayout({
                 </Link>
                 <Link
                   href="/admin/products"
+                  onClick={handleLinkClick}
                   className="flex items-center gap-4 px-2.5 text-foreground"
                 >
                   <Package className="h-5 w-5" />
@@ -174,6 +184,7 @@ export default function AdminLayout({
                 </Link>
                 <Link
                   href="/admin/settings"
+                  onClick={handleLinkClick}
                   className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                 >
                   <Settings className="h-5 w-5" />

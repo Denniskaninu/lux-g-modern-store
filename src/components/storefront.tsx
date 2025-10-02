@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useMemo, useEffect } from 'react';
@@ -8,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import ProductCard from './product-card';
 import { Search, X, ArrowDown } from 'lucide-react';
 
-const marketingWords = ["Style", "Quality", "Trends", "Exclusivity", "Luxury"];
+const marketingWords = ["Bei Poa", "Nguo Fiti", "Original", "Mali Safi"];
 
 interface StorefrontProps {
   products: Product[];
@@ -68,11 +69,11 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-transparent z-10" />
         <div className="absolute inset-0 bg-background/50 z-0" />
         <div className="container relative z-20">
-          <h1 className="font-headline text-4xl md:text-6xl font-bold tracking-tight text-primary">LUX G MODERN COLLECTION</h1>
+          <h1 className="font-headline text-4xl md:text-6xl font-bold tracking-tight text-primary">Chomoka na Nguo Fiti!</h1>
           {isClient && (
             <div className="mt-4 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto h-16 md:h-8 flex flex-col md:flex-row items-center justify-center gap-2">
-                <p>Discover Unmatched</p>
-                <div className="relative h-8 w-32">
+                <p>Get the best deals on</p>
+                <div className="relative h-8 w-32 font-bold text-foreground">
                     {marketingWords.map(word => (
                         <span key={word} className={`absolute inset-0 transition-all duration-500 ease-in-out ${word === currentWord ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
                             {word}.
@@ -83,12 +84,12 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
           )}
 
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-            We deal in trendy men's fashion, from designer jeans and jackets to exclusive footwear and accessories.
+            Hapa ni quality na style tu! We have the latest trends in men's fashion at prices that make sense.
           </p>
 
           <div className="mt-8">
             <Button size="lg" variant="outline" onClick={() => document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' })}>
-                Explore Collection
+                View Our Products
                 <ArrowDown className="ml-2 h-5 w-5 animate-bounce" />
             </Button>
           </div>
