@@ -94,7 +94,9 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
         name: `Placeholder Image ${i + 1}`
       }));
     }
-    const shuffled = [...products].sort(() => 0.5 - Math.random());
+    // Get unique products to avoid showing the same product multiple times if it has different sizes/colors
+    const uniqueProducts = Array.from(new Map(products.map(p => [p.name, p])).values());
+    const shuffled = [...uniqueProducts].sort(() => 0.5 - Math.random());
     return shuffled.slice(0, 4);
   }, [products]);
 
@@ -338,20 +340,40 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
             </div>
       </section>
 
-       <section className="container">
-            <div className="text-center mb-10">
-                <h2 className="text-3xl font-headline font-bold">What Our People Say</h2>
+      <section className="container">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl font-headline font-bold">Our Promise To You</h2>
+        </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="flex items-start gap-4">
+                <CheckCircle className="h-6 w-6 text-green-500 mt-1 shrink-0" />
+                <div>
+                    <h4 className="font-bold">Always Authentic</h4>
+                    <p className="text-muted-foreground text-sm">Original brands, no compromises. Mali safi.</p>
+                </div>
             </div>
-            <div className="grid md:grid-cols-2 gap-8">
-                <Card className="p-6">
-                    <blockquote className="italic text-muted-foreground">“Nguo ni safi, bei poa kabisa, nilipata jeans za fire hapa!”</blockquote>
-                    <p className="font-bold text-right mt-4">- Kamau, 3rd Year</p>
-                </Card>
-                 <Card className="p-6">
-                    <blockquote className="italic text-muted-foreground">“Best sneakers spot near Karatina Uni. Always getting the latest drops.”</blockquote>
-                    <p className="font-bold text-right mt-4">- Akinyi, Engineering</p>
-                </Card>
+            <div className="flex items-start gap-4">
+                <CheckCircle className="h-6 w-6 text-green-500 mt-1 shrink-0" />
+                <div>
+                    <h4 className="font-bold">Best Prices in Town</h4>
+                    <p className="text-muted-foreground text-sm">Comrade-friendly prices, guaranteed.</p>
+                </div>
             </div>
+            <div className="flex items-start gap-4">
+                <CheckCircle className="h-6 w-6 text-green-500 mt-1 shrink-0" />
+                <div>
+                    <h4 className="font-bold">The Freshest Styles</h4>
+                    <p className="text-muted-foreground text-sm">We bring you the latest trends first.</p>
+                </div>
+            </div>
+            <div className="flex items-start gap-4">
+                <CheckCircle className="h-6 w-6 text-green-500 mt-1 shrink-0" />
+                <div>
+                    <h4 className="font-bold">Shop with Confidence</h4>
+                    <p className="text-muted-foreground text-sm">Easy returns and great service, always.</p>
+                </div>
+            </div>
+        </div>
       </section>
 
        <section id="location" className="scroll-mt-20 container bg-card rounded-lg p-8 md:p-12">
@@ -403,3 +425,5 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
     </div>
   );
 }
+
+    
