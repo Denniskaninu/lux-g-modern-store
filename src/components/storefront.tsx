@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import ProductCard from './product-card';
-import { Search, X, CheckCircle, Sparkles, MapPin, Phone } from 'lucide-react';
+import { Search, X, Sparkles, MapPin } from 'lucide-react';
 import { WhatsAppIcon } from './icons';
 import Image from 'next/image';
 import { getDoc, doc } from 'firebase/firestore';
@@ -52,7 +52,6 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
             }
         } catch (error) {
             console.error("Error fetching location image:", error);
-            // Fallback to placeholder if fetch fails
             setLocationImageUrl("https://picsum.photos/seed/locationmap/600/400");
         }
     }
@@ -63,7 +62,6 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
 
   const handleFilterChange = (filterType: 'category' | 'color' | 'size') => (value: string) => {
     setFilters(prev => ({ ...prev, [filterType]: value === 'all' ? '' : value }));
-     // Scroll to collection after filter change
     document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
   
@@ -93,7 +91,6 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
         name: `Placeholder Image ${i + 1}`
       }));
     }
-    // Get unique products to avoid showing the same product multiple times if it has different sizes/colors
     const uniqueProducts = Array.from(new Map(products.map(p => [p.name, p])).values());
     const shuffled = [...uniqueProducts].sort(() => 0.5 - Math.random());
     return shuffled.slice(0, 4);
@@ -124,11 +121,9 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
               </h1>
               
               <div className="mt-4 text-lg md:text-xl text-muted-foreground h-8 flex items-center justify-center gap-2 font-semibold">
-                  {marketingWords.map((word, index) => (
-                      <span key={word} className={`transition-all duration-300 ${index > 0 ? 'hidden md:inline' : 'inline'}`}>
-                          {word}{index < marketingWords.length - 1 && <span className="mx-2 text-primary">•</span>}
-                      </span>
-                  ))}
+                <span key={currentWord} className="transition-all duration-300 animate-in fade-in">
+                    {currentWord}
+                </span>
               </div>
 
               <div className="mt-8 flex flex-col sm:flex-row gap-4">
@@ -231,8 +226,8 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
             </div>
       </section>
 
-       <section id="location" className="scroll-mt-20 container bg-card rounded-lg p-8 md:p-12">
-           <div className="grid md:grid-cols-2 gap-12 items-center">
+       <section id="location" className="scroll-mt-20 container">
+           <div className="grid md:grid-cols-2 gap-12 items-center bg-card rounded-lg p-8 md:p-12">
                 <div>
                   <h2 className="text-3xl font-headline font-bold">Visit Us Mon – Sun</h2>
                   <p className="text-muted-foreground mt-2">Tupo Karatina University, Overfourty Business Centre. <span className="font-semibold text-primary">Kuona na kuguza ni bure!</span></p>
@@ -242,11 +237,11 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
                           <span>Karatina University, Overfourty Business Centre</span>
                       </div>
                       <div className='flex items-center gap-3'>
-                          <Phone className="h-5 w-5 text-primary shrink-0" />
-                          <a href="tel:+254741791259" className="hover:text-primary transition-colors">+254 741 791 259</a>
+                          <WhatsAppIcon className="h-5 w-5 text-primary shrink-0" />
+                          <a href="https://wa.me/254741791259" target='_blank' rel="noopener noreferrer" className="hover:text-primary transition-colors">+254 741 791 259</a>
                       </div>
                   </div>
-                   <Button asChild className="mt-6 bg-green-600 hover:bg-green-700 text-white">
+                   <Button asChild className="mt-6">
                       <a href="https://wa.me/254741791259?text=Hello%2C%20I%E2%80%99m%20interested%20in%20your%20products." target="_blank" rel="noopener noreferrer">
                         <WhatsAppIcon className="mr-2 h-5 w-5" />
                         WhatsApp Us
