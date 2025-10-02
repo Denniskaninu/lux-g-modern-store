@@ -58,7 +58,9 @@ const lowStockAlertsPrompt = ai.definePrompt({
   name: 'lowStockAlertsPrompt',
   input: {schema: LowStockAlertsInputSchema},
   output: {schema: LowStockAlertsOutputSchema},
-  prompt: `You are an inventory management expert for a small retail store. Analyze the provided product and sales data to identify products that are running low on stock and may need restocking soon. Consider sales trends and current stock levels to generate informative alerts.
+  prompt: `You are an inventory management expert for a small retail store. Analyze the provided product and sales data to identify products that are running low on stock.
+
+A product is considered to be running low on stock if its quantity is less than 4.
 
 Products:
 {{#each products}}
