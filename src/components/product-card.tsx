@@ -11,7 +11,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '254741791259';
-  const message = `Hello, I’m interested in this product:\nName: ${product.name}\nCategory: ${product.category}\nColor: ${product.color}\nSize: ${product.size}`;
+  const message = `Hello, I’m interested in this product:\nName: ${product.name}\nCategory: ${product.category}\nColor: ${product.color}\nSize: ${product.size}\nPrice: ${formatCurrency(product.bp)}`;
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
   return (
@@ -37,6 +37,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           <span className="mx-1.5">•</span>
           <span>Size {product.size}</span>
         </div>
+        <p className="font-bold text-lg mt-2">{formatCurrency(product.bp)}</p>
       </CardContent>
       <CardFooter className="p-4 pt-0">
         <Button asChild className="w-full bg-green-600 hover:bg-green-700 text-white">
