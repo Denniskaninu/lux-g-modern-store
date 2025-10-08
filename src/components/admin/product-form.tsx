@@ -175,7 +175,7 @@ export function ProductForm({
                           <Camera className="w-8 h-8 text-muted-foreground" />
                         )}
                       </div>
-                      <Input type="file" accept="image/*" capture="environment" onChange={handleImageChange} className="flex-1" />
+                      <Input type="file" accept="image/*" onChange={handleImageChange} className="flex-1" />
                     </div>
                   </FormControl>
                   <FormMessage />
