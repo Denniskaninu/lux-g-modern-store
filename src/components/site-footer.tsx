@@ -68,7 +68,11 @@ export default function SiteFooter() {
               </li>
               <li className="flex items-center gap-3">
                 <WhatsAppIcon className="h-5 w-5 text-primary shrink-0" />
-                <a href="https://wa.me/254741791259" target='_blank' rel="noopener noreferrer" className="hover:text-primary transition-colors">+254 741 791 259</a>
+                <a href="https://wa.me/254741791259?text=Hello%2C%20I%E2%80%99m%20interested%20in%20your%20products." target='_blank' rel="noopener noreferrer" className="hover:text-primary transition-colors">+254 741 791 259</a>
+              </li>
+               <li className="flex items-center gap-3">
+                <Phone className="h-5 w-5 text-primary shrink-0" />
+                <a href="tel:+254741791259" className="hover:text-primary transition-colors">+254 741 791 259</a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-primary shrink-0" />
