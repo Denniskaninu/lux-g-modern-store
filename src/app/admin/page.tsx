@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
@@ -24,10 +25,13 @@ export default function AdminDashboard() {
           <Skeleton className="h-10 w-1/3" />
           <Skeleton className="h-5 w-1/2 mt-2" />
         </div>
-        <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
-          <Card><CardHeader><Skeleton className="h-5 w-24" /></CardHeader><CardContent><Skeleton className="h-8 w-32" /></CardContent></Card>
-          <Card><CardHeader><Skeleton className="h-5 w-24" /></CardHeader><CardContent><Skeleton className="h-8 w-32" /></CardContent></Card>
-          <Card><CardHeader><Skeleton className="h-5 w-24" /></CardHeader><CardContent><Skeleton className="h-8 w-32" /></CardContent></Card>
+        <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3 xl:grid-cols-5">
+           {[...Array(5)].map((_, i) => (
+                <Card key={i}>
+                    <CardHeader><Skeleton className="h-5 w-24" /></CardHeader>
+                    <CardContent><Skeleton className="h-8 w-32" /></CardContent>
+                </Card>
+            ))}
         </div>
         <Card><CardHeader><Skeleton className="h-6 w-48" /></CardHeader><CardContent><Skeleton className="h-48 w-full" /></CardContent></Card>
         <Card><CardHeader><Skeleton className="h-6 w-48" /></CardHeader><CardContent><Skeleton className="h-24 w-full" /></CardContent></Card>

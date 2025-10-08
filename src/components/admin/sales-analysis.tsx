@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
@@ -7,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, TableFooter } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Download } from "lucide-react";
+import { Download, Trophy } from "lucide-react";
 import { Skeleton } from "../ui/skeleton";
 import { useAuth } from "../auth-provider";
 import type { SaleWithProduct } from "@/lib/types";
@@ -92,6 +93,31 @@ export default function SalesAnalysis() {
   const totalRevenue = filteredSales.reduce((sum, sale) => sum + sale.sp * sale.quantity, 0);
   const totalProfit = filteredSales.reduce((sum, sale) => sum + sale.profit, 0);
 
+  const bestSellingProduct = useMemo(() => {
+    if (filteredSales.length === 0) return null;
+
+    const productSales = new Map<string, { name: string; quantity: number }>();
+
+    filteredSales.forEach(sale => {
+      const productName = `${sale.productName} (${sale.productColor}, ${sale.productSize})`;
+      const existing = productSales.get(productName);
+      if (existing) {
+        existing.quantity += sale.quantity;
+      } else {
+        productSales.set(productName, { name: productName, quantity: sale.quantity });
+      }
+    });
+
+    let bestSeller = { name: '', quantity: 0 };
+    productSales.forEach(product => {
+      if (product.quantity > bestSeller.quantity) {
+        bestSeller = product;
+      }
+    });
+
+    return bestSeller;
+  }, [filteredSales]);
+
   const downloadPdf = () => {
     const doc = new jsPDF() as jsPDFWithAutoTable;
     const tableColumn = ["Product Name", "Qty", "Revenue", "Profit"];
@@ -149,7 +175,6 @@ export default function SalesAnalysis() {
     
     doc.setFontSize(12);
     doc.setFont('helvetica', 'normal');
-    const summaryX = 20;
     const summaryY = finalY + 25;
     
     doc.autoTable({
@@ -157,6 +182,7 @@ export default function SalesAnalysis() {
         ['Total Revenue', formatCurrency(totalRevenue, 'KES')],
         ['Total Profit', formatCurrency(totalProfit, 'KES')],
         ['Total Sales Items', filteredSales.reduce((acc, s) => acc + s.quantity, 0)],
+        ['Best Selling Product', bestSellingProduct ? `${bestSellingProduct.name} (${bestSellingProduct.quantity} units)` : 'N/A'],
       ],
       startY: summaryY,
       theme: 'grid',
@@ -210,6 +236,15 @@ export default function SalesAnalysis() {
         </div>
       </CardHeader>
       <CardContent>
+        {bestSellingProduct && (
+          <div className="mb-6 p-4 bg-accent/50 rounded-lg border border-dashed flex items-center gap-4">
+            <Trophy className="h-8 w-8 text-amber-500" />
+            <div>
+              <h4 className="font-semibold text-accent-foreground">Best Selling Product</h4>
+              <p className="text-muted-foreground">{bestSellingProduct.name} - <span className="font-bold">{bestSellingProduct.quantity} units sold</span></p>
+            </div>
+          </div>
+        )}
         <Table>
           <TableHeader>
             <TableRow>
