@@ -72,7 +72,7 @@ export default function SiteFooter() {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-primary shrink-0" />
-                <a href="mailto:info@luxg.com" className="hover:text-primary transition-colors">info@luxg.com</a>
+                <a href="mailto:symonmacharia399@gmail.com" className="hover:text-primary transition-colors">symonmacharia399@gmail.com</a>
               </li>
             </ul>
           </div>
