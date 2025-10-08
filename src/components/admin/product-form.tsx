@@ -111,14 +111,16 @@ export function ProductForm({
     setLoading(true);
     try {
       let imageUrl = product?.imageUrl || "";
+      let imagePublicId = product?.imagePublicId;
       let imageHint = product?.imageHint || `${values.color} ${values.category}`;
       
       if (values.image) {
         const uploadResult = await uploadImage(values.image);
         imageUrl = uploadResult.secure_url;
+        imagePublicId = uploadResult.public_id;
       }
       
-      const productData = {
+      const productData: Omit<Product, 'id' | 'createdAt' | 'updatedAt'> = {
         name: values.name,
         category: values.category,
         color: values.color,
@@ -127,6 +129,7 @@ export function ProductForm({
         sp: values.sp,
         quantity: values.quantity,
         imageUrl,
+        imagePublicId,
         imageHint,
       };
       

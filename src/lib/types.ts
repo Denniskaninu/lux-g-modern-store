@@ -10,6 +10,7 @@ export type Product = {
   sp: number;
   quantity: number;
   imageUrl: string;
+  imagePublicId?: string; // Add public_id for Cloudinary
   imageHint: string;
   createdAt: string | FieldValue;
   updatedAt: string | FieldValue;

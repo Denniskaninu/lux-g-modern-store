@@ -86,7 +86,7 @@ export async function addProduct(product: Omit<Product, 'id' | 'createdAt' | 'up
   return docRef.id;
 }
 
-export async function updateProduct(productId: string, product: Partial<Product>): Promise<void> {
+export async function updateProduct(productId: string, product: Partial<Omit<Product, 'id'>>): Promise<void> {
   const productRef = doc(db, 'products', productId);
   await updateDoc(productRef, {
     ...product,
@@ -96,8 +96,41 @@ export async function updateProduct(productId: string, product: Partial<Product>
 
 export async function deleteProduct(productId: string): Promise<void> {
   const productRef = doc(db, 'products', productId);
+  
+  // First, get the product to find the image public_id
+  const productSnap = await getDoc(productRef);
+  if (!productSnap.exists()) {
+    throw new Error("Product not found");
+  }
+  
+  const product = productSnap.data() as Product;
+  const imagePublicId = product.imagePublicId;
+
+  // If there's a public_id, call the API to delete from Cloudinary
+  if (imagePublicId) {
+    try {
+      const response = await fetch('/api/delete-image', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ public_id: imagePublicId }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        // Log the error but don't block Firestore deletion
+        console.error('Failed to delete image from Cloudinary:', errorData.error);
+      }
+    } catch (error) {
+      console.error('Error calling delete-image API:', error);
+    }
+  }
+
+  // Finally, delete the product from Firestore
   await deleteDoc(productRef);
 }
+
 
 export async function sellProduct(
     productId: string,

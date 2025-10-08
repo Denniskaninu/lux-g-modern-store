@@ -36,7 +36,7 @@ export function DeleteProductDialog({
       await deleteProduct(productId);
       toast({
         title: "Success",
-        description: "Product deleted successfully.",
+        description: "Product and its image deleted successfully.",
       });
       onOpenChange(false);
     } catch (error: any) {
@@ -58,7 +58,7 @@ export function DeleteProductDialog({
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete the
-            product from your inventory.
+            product from your inventory and its associated image from Cloudinary.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
