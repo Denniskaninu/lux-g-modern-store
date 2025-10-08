@@ -7,11 +7,12 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import ProductCard from './product-card';
-import { Search, X, Sparkles, MapPin } from 'lucide-react';
+import { Search, X, Sparkles, MapPin, Star } from 'lucide-react';
 import { WhatsAppIcon } from './icons';
 import Image from 'next/image';
 import { getDoc, doc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
+import { Card, CardContent } from './ui/card';
 
 const marketingWords = ["Bei Poa", "Nguo Fiti", "Original", "Mali Safi"];
 
@@ -264,6 +265,51 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
            </div>
        </section>
 
+        <section className="container">
+            <div className="text-center mb-10">
+                <h2 className="text-3xl font-headline font-bold">What Our Customers Say</h2>
+                <p className="text-muted-foreground mt-2">Don't just take our word for it. Here's what our customers think.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <Card>
+                    <CardContent className="p-6">
+                        <div className="flex items-center mb-2">
+                            {[...Array(5)].map((_, i) => <Star key={i} className="h-5 w-5 text-primary fill-primary" />)}
+                        </div>
+                        <p className="text-foreground italic">"Nguo zao ni fiti mbaya! Quality na service ni top-notch. Mme-nice!"</p>
+                        <p className="font-bold text-right mt-4 text-sm">- Brian K.</p>
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardContent className="p-6">
+                        <div className="flex items-center mb-2">
+                            {[...Array(5)].map((_, i) => <Star key={i} className="h-5 w-5 text-primary fill-primary" />)}
+                        </div>
+                        <p className="text-foreground italic">"Hapa ndio place ya kubuy original. Huku hakuna compe. Bei poa na mali safi."</p>
+                        <p className="font-bold text-right mt-4 text-sm">- DJ Shinski</p>
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardContent className="p-6">
+                        <div className="flex items-center mb-2">
+                            {[...Array(5)].map((_, i) => <Star key={i} className="h-5 w-5 text-primary fill-primary" />)}
+                        </div>
+                        <p className="text-foreground italic">"Since nichop, manzi ananiita 'drippiest'. Shukran Lux G, mko juu!"</p>
+                        <p className="font-bold text-right mt-4 text-sm">- Alex M.</p>
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardContent className="p-6">
+                        <div className="flex items-center mb-2">
+                            {[...Array(5)].map((_, i) => <Star key={i} className="h-5 w-5 text-primary fill-primary" />)}
+                        </div>
+                        <p className="text-foreground italic">"Delivery on time, na vile item inakaa kwa picha ndio inakaa real life. Wametesa!"</p>
+                        <p className="font-bold text-right mt-4 text-sm">- Caro W.</p>
+                    </CardContent>
+                </Card>
+            </div>
+        </section>
+
         <section className="container text-center py-12">
             <h2 className="text-2xl md:text-3xl font-headline font-bold">Shop With Confidence</h2>
             <p className="text-muted-foreground mt-2 max-w-xl mx-auto">Come shop with us at Lux G modern collections where quality is our priority.</p>
@@ -279,5 +325,7 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
     </div>
   );
 }
+
+    
 
     
