@@ -1,4 +1,4 @@
-# LUX MODERN COLLECTIONS - Admin Guide
+# LUX MODERN COLLECTION - Admin Guide
 
 Welcome to your store's admin dashboard! This guide will walk you through all the features available to help you manage your inventory, track sales, and keep your store running smoothly.
 
