@@ -117,7 +117,7 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
               </div>
 
               <h1 className="font-headline text-4xl md:text-7xl font-bold tracking-tight text-foreground">
-                  Chomoka na Nguo Fiti Kutoka lux G modern Collections!
+                  Come shop with us at Lux G modern collections where quality is our priority
               </h1>
               
               <div className="mt-4 text-lg md:text-xl text-muted-foreground h-8 flex items-center justify-center gap-2 font-semibold">
@@ -265,8 +265,8 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
        </section>
 
         <section className="container text-center py-12">
-            <h2 className="text-2xl md:text-3xl font-headline font-bold">Don’t Just Blend In. Stand Out.</h2>
-            <p className="text-muted-foreground mt-2 max-w-xl mx-auto">Chomoka na nguo fiti kutoka hapa Lux G Modern Collection!</p>
+            <h2 className="text-2xl md:text-3xl font-headline font-bold">Shop With Confidence</h2>
+            <p className="text-muted-foreground mt-2 max-w-xl mx-auto">Come shop with us at Lux G modern collections where quality is our priority.</p>
             <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
                 <Button size="lg" onClick={() => document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' })}>
                     Shop The Collection
@@ -279,3 +279,5 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
     </div>
   );
 }
+
+    
