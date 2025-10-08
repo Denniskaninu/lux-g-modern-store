@@ -135,7 +135,7 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
                       Shop Now
                   </Button>
                   <Button size="lg" variant="outline" onClick={() => document.getElementById('location')?.scrollIntoView({ behavior: 'smooth' })}>
-                      Visit Our Store in Karatina
+                      Visit Our Store in Karatina Over 40
                   </Button>
               </div>
           </div>
