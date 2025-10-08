@@ -118,7 +118,7 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
               </div>
 
               <h1 className="font-headline text-4xl md:text-7xl font-bold tracking-tight text-foreground">
-                  Come shop with us at Lux G modern collections where quality is our priority
+                  Come shop with us at Lux modern collections where quality is our priority
               </h1>
               
               <div className="mt-4 text-lg md:text-xl text-muted-foreground h-8 flex items-center justify-center gap-2 font-semibold">
@@ -214,7 +214,7 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
        <section className="bg-card py-16">
             <div className="container text-center">
                 <h2 className="text-3xl font-headline font-bold">Join The Movement</h2>
-                <p className="text-muted-foreground mt-2 max-w-xl mx-auto">Show off your style! Tag us on Instagram with <span className="font-bold text-primary">#LuxGFiti</span> to get featured.</p>
+                <p className="text-muted-foreground mt-2 max-w-xl mx-auto">Show off your style! Tag us on Instagram with <span className="font-bold text-primary">#LuxFiti</span> to get featured.</p>
                 <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
                     {galleryImages.map((product, i) => (
                         <div key={i} className="aspect-square relative rounded-lg overflow-hidden group">
@@ -294,7 +294,7 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
                         <div className="flex items-center mb-2">
                             {[...Array(5)].map((_, i) => <Star key={i} className="h-5 w-5 text-primary fill-primary" />)}
                         </div>
-                        <p className="text-foreground italic">"Since nichop, manzi ananiita 'drippiest'. Shukran Lux G, mko juu!"</p>
+                        <p className="text-foreground italic">"Since nichop, manzi ananiita 'drippiest'. Shukran Lux, mko juu!"</p>
                         <p className="font-bold text-right mt-4 text-sm">- Alex M.</p>
                     </CardContent>
                 </Card>
@@ -312,7 +312,7 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
 
         <section className="container text-center py-12">
             <h2 className="text-2xl md:text-3xl font-headline font-bold">Shop With Confidence</h2>
-            <p className="text-muted-foreground mt-2 max-w-xl mx-auto">Come shop with us at Lux G modern collections where quality is our priority.</p>
+            <p className="text-muted-foreground mt-2 max-w-xl mx-auto">Come shop with us at Lux modern collections where quality is our priority.</p>
             <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
                 <Button size="lg" onClick={() => document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth' })}>
                     Shop The Collection

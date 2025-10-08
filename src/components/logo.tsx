@@ -5,7 +5,7 @@ export default function Logo() {
     <div className="flex items-center gap-2">
       <Gem className="h-6 w-6 text-primary" />
       <span className="font-headline text-xl font-bold uppercase tracking-wider text-foreground">
-        LUX G
+        LUX
       </span>
     </div>
   );

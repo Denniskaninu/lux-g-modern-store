@@ -104,7 +104,7 @@ export default function LoginPage() {
                 <div className="flex items-center gap-2">
                     <Gem className="h-8 w-8 text-primary" />
                     <span className="font-headline text-2xl font-bold uppercase tracking-wider text-foreground">
-                        LUX G
+                        LUX
                     </span>
                 </div>
             </div>

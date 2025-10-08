@@ -139,7 +139,7 @@ export default function SalesAnalysis() {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(22);
     doc.setTextColor(38, 92, 50); // Primary color
-    doc.text("LUX G MODERN COLLECTION", doc.internal.pageSize.getWidth() / 2, 20, { align: 'center' });
+    doc.text("LUX MODERN COLLECTION", doc.internal.pageSize.getWidth() / 2, 20, { align: 'center' });
 
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
@@ -190,7 +190,7 @@ export default function SalesAnalysis() {
     });
 
 
-    doc.save(`LUX-G_Sales_Report_${timePeriod}_${new Date().toISOString().split('T')[0]}.pdf`);
+    doc.save(`LUX_Sales_Report_${timePeriod}_${new Date().toISOString().split('T')[0]}.pdf`);
   };
 
 

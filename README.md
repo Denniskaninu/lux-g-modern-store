@@ -1,6 +1,6 @@
-# LUX G MODERN COLLECTIONS - Admin Dashboard & Storefront
+# LUX MODERN COLLECTIONS - Admin Dashboard & Storefront
 
-This is a full-stack e-commerce application built for "LUX G MODERN COLLECTIONS", a modern men's fashion retailer. The application features a public-facing storefront to display products and a secure admin dashboard for comprehensive store management.
+This is a full-stack e-commerce application built for "LUX MODERN COLLECTIONS", a modern men's fashion retailer. The application features a public-facing storefront to display products and a secure admin dashboard for comprehensive store management.
 
 ---
 
