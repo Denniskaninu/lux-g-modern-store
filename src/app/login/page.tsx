@@ -54,14 +54,15 @@ export default function LoginPage() {
   const handleGoogleLogin = async () => {
     setGoogleLoading(true);
     const provider = new GoogleAuthProvider();
-    const adminEmails = (process.env.NEXT_PUBLIC_ADMIN_EMAILS || "").split(',');
+    // Fallback to a default admin email if the environment variable is not set.
+    const adminEmailsEnv = process.env.NEXT_PUBLIC_ADMIN_EMAILS || "symonmacharia399@gmail.com";
+    const adminEmails = adminEmailsEnv.split(',');
 
     if (!adminEmails.length || adminEmails[0] === '') {
-        console.error("Admin emails are not configured in environment variables.");
         toast({
             variant: "destructive",
             title: "Configuration Error",
-            description: "The application is not configured for admin login. Please contact support.",
+            description: "No admin emails are configured for this application.",
         });
         setGoogleLoading(false);
         return;
