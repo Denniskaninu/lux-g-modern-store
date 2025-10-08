@@ -104,7 +104,7 @@ export default function AdminLayout({
             className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
           >
             <Gem className="h-4 w-4 transition-all group-hover:scale-110" />
-            <span className="sr-only">LUX G</span>
+            <span className="sr-only">LUX</span>
           </Link>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -164,7 +164,7 @@ export default function AdminLayout({
                   className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
                 >
                   <Gem className="h-5 w-5 transition-all group-hover:scale-110" />
-                  <span className="sr-only">LUX G</span>
+                  <span className="sr-only">LUX</span>
                 </Link>
                 <Link
                   href="/admin"
@@ -216,11 +216,11 @@ export default function AdminLayout({
                           <TooltipTrigger asChild>
                               <Link href="/admin">
                                   <Gem className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
-                                  <span className="sr-only">LUX G Admin Home</span>
+                                  <span className="sr-only">LUX Admin Home</span>
                               </Link>
                           </TooltipTrigger>
                           <TooltipContent>
-                              <p>LUX G Admin</p>
+                              <p>LUX Admin</p>
                           </TooltipContent>
                       </Tooltip>
                   </TooltipProvider>

@@ -8,7 +8,7 @@ import RootLayoutClient from './layout-client';
 
 
 export const metadata: Metadata = {
-  title: 'LUX G MODERN COLLECTIONS',
+  title: 'LUX MODERN COLLECTIONS',
   description: 'Trendy men fashion including designer jeans, jackets, shirts, shoes, and more., Jerseys, Topers',
 };
 

@@ -98,7 +98,7 @@ export default function SiteFooter() {
           </div>
         </div>
         <div className="mt-8 border-t pt-6 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left gap-4">
-          <p className="text-sm text-muted-foreground">&copy; {currentYear} LUX G MODERN COLLECTION. All rights reserved.</p>
+          <p className="text-sm text-muted-foreground">&copy; {currentYear} LUX MODERN COLLECTION. All rights reserved.</p>
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
