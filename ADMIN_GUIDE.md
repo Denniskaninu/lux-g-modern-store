@@ -8,7 +8,7 @@ Welcome to your store's admin dashboard! This guide will walk you through all th
 
 To manage your store, you must log in to the admin dashboard.
 
--   **How to Log In**: Go to your website's login page (e.g., `yourwebsite.com/login`) and click the **"Login with Google"** button.
+-   **How to Log In**: Go to your website's login page (https://lux-g-modern-collection.netlify.app) and click the **"Login with Google"** button.
 -   **Authorized Users**: Only specific Google accounts are permitted to log in. The authorized emails are:
     -   `symonmacharia399@gmail.com`
 
