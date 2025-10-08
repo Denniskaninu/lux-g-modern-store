@@ -286,7 +286,7 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
                             {[...Array(5)].map((_, i) => <Star key={i} className="h-5 w-5 text-primary fill-primary" />)}
                         </div>
                         <p className="text-foreground italic">"Hapa ndio place ya kubuy original. Huku hakuna compe. Bei poa na mali safi."</p>
-                        <p className="font-bold text-right mt-4 text-sm">- DJ Shinski</p>
+                        <p className="font-bold text-right mt-4 text-sm">- Dennis k</p>
                     </CardContent>
                 </Card>
                 <Card>
@@ -325,6 +325,8 @@ export default function Storefront({ products, categories, colors, sizes }: Stor
     </div>
   );
 }
+
+    
 
     
 
