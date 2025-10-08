@@ -10,8 +10,6 @@ To manage your store, you must log in to the admin dashboard.
 
 -   **How to Log In**: Go to your website's login page (e.g., `yourwebsite.com/login`) and click the **"Login with Google"** button.
 -   **Authorized Users**: Only specific Google accounts are permitted to log in. The authorized emails are:
-    -   `denniskaninu254@gmail.com`
-    -   `denniskaninu52@gmail.com`
     -   `symonmacharia399@gmail.com`
 
 If you try to log in with any other account, you will receive an error message.
