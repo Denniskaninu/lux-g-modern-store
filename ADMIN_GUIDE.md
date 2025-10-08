@@ -23,6 +23,8 @@ The main dashboard gives you a quick snapshot of your store's performance.
 -   **Total Revenue**: The total amount of money earned from all sales.
 -   **Total Profit**: The total profit made after subtracting the buying price of goods from the selling price.
 -   **Sales**: The total number of individual sales transactions.
+-   **Net Worth (Cost)**: The total value of your entire inventory based on what you paid for it (Buying Price).
+-   **Net Worth (Potential)**: The total potential revenue you could make if you sold all your current stock at its selling price.
 
 ---
 
@@ -48,7 +50,7 @@ Next to each product in the table, there is a button with three dots (`...`). Cl
 
 -   **Sell**: Use this to record a sale. A pop-up will ask for the quantity sold and the final selling price (in case of a discount). The system will automatically update the stock quantity.
 -   **Update**: Use this to edit any detail of an existing product, like its price, quantity, or image.
--   **Delete**: This will permanently remove the product from your inventory. **This action cannot be undone.**
+-   **Delete**: This will permanently remove the product from your inventory and its image from your Cloudinary media storage. **This action cannot be undone.**
 
 ---
 
@@ -57,6 +59,7 @@ Next to each product in the table, there is a button with three dots (`...`). Cl
 The **Sales Analysis** section on the dashboard provides a detailed breakdown of your sales.
 
 -   **Filter by Time**: You can view sales for "Today", "This Week", "This Month", or "This Year" using the dropdown menu.
+-   **Best-Selling Product**: A special card with a trophy icon will automatically highlight the top-selling product for the selected time period.
 -   **View Details**: The table shows which products were sold, the quantity, and the revenue and profit for each.
 -   **Download PDF Report**: Click the **Download** icon to get a professional PDF summary of the sales for the selected period. This is great for record-keeping.
 
