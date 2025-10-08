@@ -7,10 +7,13 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatCurrency(amount: number, currency = "KES") {
-  return new Intl.NumberFormat("en-KE", {
+  const options: Intl.NumberFormatOptions = {
     style: "currency",
     currency,
-  }).format(amount);
+    minimumFractionDigits: amount % 1 === 0 ? 0 : 2,
+    maximumFractionDigits: 2,
+  };
+  return new Intl.NumberFormat("en-KE", options).format(amount);
 }
 
 
